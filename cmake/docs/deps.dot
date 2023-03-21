@@ -1,0 +1,41 @@
+@startdot
+digraph CMakeDeps {
+  //rankdir=BT;
+  rankdir=TD;
+  node [shape=box, style="rounded,filled", color=royalblue, fillcolor=royalblue];
+
+  subgraph clusterZLIB {
+    ZLIB [label="ZLIB::ZLIB"];
+
+    color=royalblue;
+    label = "madler/zlib.git + cmake patch";
+  }
+
+  subgraph clusterAbsl {
+    Absl [label="absl::absl_*"];
+
+    color=royalblue;
+    label = "abseil/abseil-cpp.git";
+  }
+
+  subgraph clusterProtobuf {
+    Protobuf [label="protobuf::libprotobuf"];
+    Protoc [label="protobuf::protoc", shape=component];
+
+    color=royalblue;
+    label = "protocolbuffers/protobuf.git";
+  }
+
+  subgraph clusterRe2 {
+    Re2 [label="re2::re2"];
+
+    color=royalblue;
+    label = "google/re2.git";
+  }
+
+  // Inter deps
+  ZLIB -> Protobuf;
+  Absl -> Protobuf;
+}
+@enddot
+# vim tw:0
