@@ -6,23 +6,28 @@
 .github
 .clang-format
 
-ci/Makefile
-#ci/docker
-**/Dockerfile
-ci/docs
-ci/cache
-ci/export
-
 AUTHORS
 CONTRIBUTING.md
 CONTRIBUTORS
 LICENSE
 README.md
-doc
+docs
+
+
+# CI
+bazel/Makefile
+bazel/docker
+bazel/docs
+
+cmake/Makefile
+cmake/docker
+cmake/docs
+**/Dockerfile
 
 # Native cmake build
 build/
 build*/
+bazel-*/
 
 # Editor directories and files
 *.user
