@@ -1,7 +1,4 @@
 enable_language(CXX)
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Check primitive types
 option(CHECK_TYPE "Check primitive type size" OFF)
@@ -59,7 +56,8 @@ function(add_cpp_test FILE_NAME)
   target_include_directories(${TEST_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
   target_compile_features(${TEST_NAME} PRIVATE cxx_std_17)
   target_link_libraries(${TEST_NAME} PRIVATE
-    Catch2 Catch2WithMain
+    #Catch2 Catch2WithMain
+    GTest::gtest
     ${PROJECT_NAMESPACE}::Foo
     ${PROJECT_NAMESPACE}::Bar
     ${PROJECT_NAMESPACE}::FooBar)
