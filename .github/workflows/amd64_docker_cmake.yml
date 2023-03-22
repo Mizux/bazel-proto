@@ -19,19 +19,19 @@ jobs:
         docker info
         docker buildx ls
     - name: Build env image
-      run: make --directory=ci ${DISTRO}_env
+      run: make --directory=cmake ${DISTRO}_env
     - name: Build devel project
-      run: make --directory=ci ${DISTRO}_devel
+      run: make --directory=cmake ${DISTRO}_devel
     - name: Build project
-      run: make --directory=ci ${DISTRO}_build
+      run: make --directory=cmake ${DISTRO}_build
     - name: Test project
-      run: make --directory=ci ${DISTRO}_test
+      run: make --directory=cmake ${DISTRO}_test
 
     - name: Build install env image
-      run: make --directory=ci ${DISTRO}_install_env
+      run: make --directory=cmake ${DISTRO}_install_env
     - name: Build install devel project
-      run: make --directory=ci ${DISTRO}_install_devel
+      run: make --directory=cmake ${DISTRO}_install_devel
     - name: Build install project
-      run: make --directory=ci ${DISTRO}_install_build
+      run: make --directory=cmake ${DISTRO}_install_build
     - name: Test install project
-      run: make --directory=ci ${DISTRO}_install_test
+      run: make --directory=cmake ${DISTRO}_install_test
