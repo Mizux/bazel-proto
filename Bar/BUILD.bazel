@@ -1,4 +1,19 @@
+load("@rules_cc//cc:defs.bzl", "cc_proto_library")
+load("@bazel_skylib//rules:copy_file.bzl", "copy_file")
 load("@rules_cc//cc:defs.bzl", "cc_library")
+
+package(default_visibility = ["//visibility:public"])
+
+proto_library(
+    name = "bar_proto",
+    srcs = ["bar.proto"],
+    deps = [],
+)
+
+cc_proto_library(
+    name = "bar_cc_proto",
+    deps = [":bar_proto"],
+)
 
 cc_library(
   name = "bar",
@@ -6,6 +21,12 @@ cc_library(
   hdrs = ["include/bar/Bar.hpp"],
   strip_include_prefix = "include",
   visibility = ["//visibility:public"],
+  #Copts = [
+  #  "-std=c++17",
+  #  ],
+  deps = [
+   ":bar_cc_proto",
+  ],
 )
 
 cc_test(

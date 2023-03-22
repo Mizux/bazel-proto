@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <string>
 #include <vector>
+#include <Bar/bar.pb.h>
 
 //! @namespace bar The Bar namespace
 namespace bar {
