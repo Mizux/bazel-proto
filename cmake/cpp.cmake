@@ -57,10 +57,11 @@ function(add_cpp_test FILE_NAME)
   target_compile_features(${TEST_NAME} PRIVATE cxx_std_17)
   target_link_libraries(${TEST_NAME} PRIVATE
     #Catch2 Catch2WithMain
-    GTest::gtest
+    GTest::gtest GTest::gtest_main
     ${PROJECT_NAMESPACE}::Foo
     ${PROJECT_NAMESPACE}::Bar
-    ${PROJECT_NAMESPACE}::FooBar)
+    ${PROJECT_NAMESPACE}::FooBar
+  )
 
   if(BUILD_TESTING)
     add_test(NAME cpp_${COMPONENT_NAME}_${TEST_NAME} COMMAND ${TEST_NAME})
