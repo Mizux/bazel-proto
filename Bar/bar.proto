@@ -1,5 +1,4 @@
 // Proto describing a general Constraint Programming (CP) problem.
-
 syntax = "proto3";
 
 package bar;

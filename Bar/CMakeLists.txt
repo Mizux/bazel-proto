@@ -47,7 +47,6 @@ target_include_directories(Bar
   PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}>
-    #$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/Bar>
     $<INSTALL_INTERFACE:include>
   )
 target_compile_features(Bar PUBLIC cxx_std_17)

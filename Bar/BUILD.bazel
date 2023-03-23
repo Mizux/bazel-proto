@@ -1,6 +1,6 @@
-load("@rules_cc//cc:defs.bzl", "cc_proto_library")
-load("@bazel_skylib//rules:copy_file.bzl", "copy_file")
-load("@rules_cc//cc:defs.bzl", "cc_library")
+#load("@bazel_skylib//rules:copy_file.bzl", "copy_file")
+load("@rules_proto//proto:defs.bzl", "proto_library")
+load("@rules_cc//cc:defs.bzl", "cc_library", "cc_proto_library")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -21,18 +21,16 @@ cc_library(
   hdrs = ["include/bar/Bar.hpp"],
   strip_include_prefix = "include",
   visibility = ["//visibility:public"],
-  #Copts = [
-  #  "-std=c++17",
-  #  ],
   deps = [
-   ":bar_cc_proto",
+    #"@com_google_googletest//:gtest_main",
+    #"@com_google_absl//absl/base",
+    ":bar_cc_proto",
   ],
 )
 
 cc_test(
   name = "bar-test",
   srcs = ["tests/bar_test.cpp"],
-  #copts = ["-Iexternal/gtest/include"],
   deps = [
     "@com_google_googletest//:gtest_main",
     ":bar",

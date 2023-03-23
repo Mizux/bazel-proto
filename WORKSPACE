@@ -18,6 +18,12 @@ git_repository(
     remote = "https://github.com/bazelbuild/platforms.git",
 )
 
+git_repository(
+    name = "rules_proto",
+    tag = "5.3.0-21.7",
+    remote = "https://github.com/bazelbuild/rules_proto.git",
+)
+
 # Dependencies
 ## ZLIB
 new_git_repository(
