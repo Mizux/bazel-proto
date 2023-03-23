@@ -29,7 +29,7 @@ COPY --from=build /usr/local /usr/local/
 
 FROM install_env AS install_devel
 WORKDIR /home/samples
-COPY ci/samples .
+COPY cmake/samples .
 
 FROM install_devel AS install_build
 RUN cmake -S. -Bbuild
