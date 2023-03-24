@@ -8,6 +8,24 @@
 #include "foo/Foo.hpp"
 
 namespace foobar {
+void freeFunction(int level) {
+  std::cout << "[" << level << "] Enter " << __func__ << "(int)" << std::endl;
+  foo::freeFunction(level + 1);
+  bar::freeFunction(level + 1);
+  std::cout << "[" << level << "] Exit " << __func__ << "(int)" << std::endl;
+}
+
+void freeFunction(int64_t level) {
+  std::cout << "[" << level << "] Enter " << __func__ << "(int64_t)" << std::endl;
+  foo::freeFunction(level + 1);
+  bar::freeFunction(level + 1);
+  std::cout << "[" << level << "] Exit " << __func__ << "(int64_t)" << std::endl;
+}
+
+foo::C protoFunction(int level) {
+  return foo::protoFunction(level);
+}
+
 std::vector<std::string> stringVectorOutput(int level) {
   std::cout << "[" << level << "] Enter " << __func__ << "()" << std::endl;
   std::vector<std::string> result;
@@ -154,20 +172,6 @@ int pairJaggedArrayRefInput(const std::vector<std::vector<std::pair<int, int>>>&
   std::cout << "}" << std::endl;
   std::cout << "Exit " << __func__ << "()" << std::endl;
   return data.size();
-}
-
-void freeFunction(int level) {
-  std::cout << "[" << level << "] Enter " << __func__ << "(int)" << std::endl;
-  foo::freeFunction(level + 1);
-  bar::freeFunction(level + 1);
-  std::cout << "[" << level << "] Exit " << __func__ << "(int)" << std::endl;
-}
-
-void freeFunction(int64_t level) {
-  std::cout << "[" << level << "] Enter " << __func__ << "(int64_t)" << std::endl;
-  foo::freeFunction(level + 1);
-  bar::freeFunction(level + 1);
-  std::cout << "[" << level << "] Exit " << __func__ << "(int64_t)" << std::endl;
 }
 
 void FooBar::staticFunction(int level) {
