@@ -25,5 +25,8 @@ int main(int /*argc*/, char** /*argv*/) {
 
   std::cout << f() << std::endl;
 
+  foo::C c = foobar::protoFunction(42);
+  std::cerr << absl::StrCat(c);
+
   return 0;
 }
