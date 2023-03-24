@@ -7,6 +7,16 @@
 
 //! @namespace foo The Foo namespace
 namespace foo {
+//! @defgroup FreeFunction Free function usage.
+//! @{
+/*! @brief Free function in foo namespace.
+ * @param level Scope level.*/
+void freeFunction(int level);
+/*! @brief Free function in foo namespace.
+ * @param level Scope level.*/
+void freeFunction(int64_t level);
+//! @}
+
 //! @defgroup ProtoFunction Proto function usage.
 /*! @brief Proto function in foo namespace.
  * @param level Scope level.*/
@@ -75,16 +85,6 @@ int pairJaggedArrayInput(std::vector<std::vector<std::pair<int, int>>> data);
  * @param data Input data.
  * @return The size of the data outer vector.*/
 int pairJaggedArrayRefInput(const std::vector<std::vector<std::pair<int, int>>>& data);
-//! @}
-
-//! @defgroup FreeFunction Free function usage.
-//! @{
-/*! @brief Free function in foo namespace.
- * @param level Scope level.*/
-void freeFunction(int level);
-/*! @brief Free function in foo namespace.
- * @param level Scope level.*/
-void freeFunction(int64_t level);
 //! @}
 
 //! @brief Class Foo.
