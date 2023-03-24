@@ -11,6 +11,14 @@ TEST(FooTest, FreeFunction) {
   EXPECT_NO_THROW(freeFunction(int64_t{42}));
 }
 
+TEST(FooTest, ProtoFunction) {
+ foo::C c = protoFunction(42);
+EXPECT_TRUE(c.has_a());
+EXPECT_EQ(c.a().name(), std::to_string(42));
+EXPECT_TRUE(c.has_b());
+EXPECT_EQ(c.b().value(), 42);
+}
+
 TEST(FooTest, StringVectorOutput) {
   std::vector<std::string> result;
   ASSERT_NO_THROW(result = stringVectorOutput(8));

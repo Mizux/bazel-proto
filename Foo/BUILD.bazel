@@ -1,4 +1,31 @@
+load("@rules_proto//proto:defs.bzl", "proto_library")
 load("@rules_cc//cc:defs.bzl", "cc_library")
+
+package(default_visibility = ["//visibility:public"])
+
+proto_library(
+    name = "proto_a",
+    srcs = ["A.proto"],
+)
+
+proto_library(
+    name = "proto_b",
+    srcs = ["B.proto"],
+)
+
+proto_library(
+    name = "proto_c",
+    srcs = ["C.proto"],
+    deps = [
+      ":proto_a",
+      ":proto_b",
+    ],
+)
+
+cc_proto_library(
+    name = "foo_cc_proto",
+    deps = [":proto_c"],
+)
 
 cc_library(
   name = "foo",
@@ -6,6 +33,9 @@ cc_library(
   hdrs = ["include/foo/Foo.hpp"],
   strip_include_prefix = "include",
   visibility = ["//visibility:public"],
+  deps = [
+    ":foo_cc_proto",
+  ],
 )
 
 cc_test(
