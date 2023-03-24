@@ -68,6 +68,6 @@ protobuf_deps()
 ## Testing
 git_repository(
     name = "com_google_googletest",
-    commit = "e2239ee", # release-1.11.0
+    tag = "v1.13.0",
     remote = "https://github.com/google/googletest.git",
 )
