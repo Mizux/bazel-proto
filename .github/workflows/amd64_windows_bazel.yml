@@ -1,4 +1,4 @@
-name: amd64 Windows CMake
+name: amd64 Windows Bazel
 
 on: [push, pull_request]
 
