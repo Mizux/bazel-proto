@@ -79,12 +79,12 @@ To build this example you should use:
 
 * on UNIX:
   ```sh
-  bazel build --cxxopt=-std=c++17 ...
+  bazel build --repo_env=BAZEL_CXXOPTS="-std=c++17" --subcommands=true ...
   ```
 
 * on Windows when using MSVC:
   ```sh
-  bazel build --cxxopt="/std:c++17" ...
+  bazel build --repo_env=BAZEL_CXXOPTS="/std:c++17" --subcommands=true ...
   ```
 
 ## Running Tests
@@ -93,12 +93,12 @@ To build this example you should use:
 
 * on UNIX:
   ```sh
-  bazel test --cxxopt=-std=c++17 ...
+  bazel test --repo_env=BAZEL_CXXOPTS="-std=c++17" --test_output=all ...
   ```
 
 * on Windows when using MSVC:
   ```sh
-  bazel test --cxxopt="/std:c++17" ...
+  bazel test --repo_env=BAZEL_CXXOPTS="/std:c++17" --test_output=all ...
   ```
 
 ## Tutorial

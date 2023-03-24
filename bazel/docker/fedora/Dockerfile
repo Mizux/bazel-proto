@@ -18,7 +18,15 @@ COPY . .
 
 FROM devel AS build
 RUN bazel version
-RUN bazel build -c opt --cxxopt=-std=c++17 --subcommands=true ...
+RUN bazel build \
+ -c opt \
+ --repo_env=BAZEL_CXXOPTS="-std=c++17" \
+ --subcommands=true \
+ ...
 
 FROM build AS test
-RUN bazel test -c opt --cxxopt=-std=c++17 --subcommands=true ...
+RUN bazel test \
+ -c opt \
+ --repo_env=BAZEL_CXXOPTS="-std=c++17" \
+ --test_output=all \
+ ...

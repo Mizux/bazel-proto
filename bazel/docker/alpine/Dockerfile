@@ -22,7 +22,17 @@ COPY . .
 
 FROM devel AS build
 RUN bazel version
-RUN bazel build -c opt --host_javabase=@local_jdk//:jdk --cxxopt=-std=c++17 --subcommands=true ...
+RUN bazel build \
+ -c opt \
+ --host_javabase=@local_jdk//:jdk \
+ --repo_env=BAZEL_CXXOPTS="-std=c++17" \
+ --subcommands=true \
+ ...
 
 FROM build AS test
-RUN bazel test -c opt --host_javabase=@local_jdk//:jdk --cxxopt=-std=c++17 --subcommands=true ...
+RUN bazel test \
+ -c opt \
+ --host_javabase=@local_jdk//:jdk \
+ --repo_env=BAZEL_CXXOPTS="-std=c++17" \
+ --test_output=all \
+ ...
