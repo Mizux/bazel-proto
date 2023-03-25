@@ -110,10 +110,10 @@ macro(get_cpp_proto PROTO_HDRS PROTO_SRCS)
   endforeach()
 endmacro()
 
-add_subdirectory(Foo)
-add_subdirectory(Bar)
-add_subdirectory(FooBar)
-add_subdirectory(FooBarApp)
+add_subdirectory(foo)
+add_subdirectory(bar)
+add_subdirectory(foobar)
+add_subdirectory(app)
 
 # Install
 install(EXPORT ${PROJECT_NAME}Targets

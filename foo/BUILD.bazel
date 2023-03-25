@@ -29,9 +29,9 @@ cc_proto_library(
 
 cc_library(
   name = "foo",
-  srcs = ["src/Foo.cpp"],
-  hdrs = ["include/foo/Foo.hpp"],
-  strip_include_prefix = "include",
+  srcs = ["foo.cc"],
+  hdrs = ["foo.h"],
+  #strip_include_prefix = "include",
   visibility = ["//visibility:public"],
   deps = [
     ":foo_cc_proto",
@@ -39,9 +39,8 @@ cc_library(
 )
 
 cc_test(
-  name = "foo-test",
-  srcs = ["tests/foo_test.cpp"],
-  #copts = ["-Iexternal/gtest/include"],
+  name = "foo_test",
+  srcs = ["foo_test.cc"],
   deps = [
     "@com_google_googletest//:gtest_main",
     ":foo",

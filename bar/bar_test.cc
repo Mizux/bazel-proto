@@ -1,25 +1,21 @@
-#include "foo/Foo.hpp"
-
 #include <gtest/gtest.h>
 #include <iostream>
 #include <numeric>
 #include <string>
 
-namespace foo {
-TEST(FooTest, FreeFunction) {
+#include "bar.h"
+
+namespace bar {
+TEST(BarTest, FreeFunction) {
   EXPECT_NO_THROW(freeFunction(42));
   EXPECT_NO_THROW(freeFunction(int64_t{42}));
 }
 
-TEST(FooTest, ProtoFunction) {
- foo::C c = protoFunction(42);
-EXPECT_TRUE(c.has_a());
-EXPECT_EQ(c.a().name(), std::to_string(42));
-EXPECT_TRUE(c.has_b());
-EXPECT_EQ(c.b().value(), 42);
+TEST(BarTest, ProtoFunction) {
+
 }
 
-TEST(FooTest, StringVectorOutput) {
+TEST(BarTest, StringVectorOutput) {
   std::vector<std::string> result;
   ASSERT_NO_THROW(result = stringVectorOutput(8));
   EXPECT_EQ(result.size(), 8);
@@ -28,21 +24,21 @@ TEST(FooTest, StringVectorOutput) {
   }
 }
 
-TEST(FooTest, StringVectorValueInput) {
+TEST(BarTest, StringVectorValueInput) {
   const std::vector<std::string> data{"1", "2", "3", "4", "5"};
-  int                            size = 0;
+  int                      size = 0;
   ASSERT_NO_THROW(size = stringVectorInput(data));
   EXPECT_EQ(size, 5);
 }
 
-TEST(FooTest, StringVectorRefInput) {
+TEST(BarTest, StringVectorRefInput) {
   const std::vector<std::string> data{"1", "2", "3", "4", "5"};
-  int                            size = 0;
+  int                      size = 0;
   ASSERT_NO_THROW(size = stringVectorRefInput(data));
   EXPECT_EQ(size, 5);
 }
 
-TEST(FooTest, StringJaggedArrayOutput) {
+TEST(BarTest, StringJaggedArrayOutput) {
   std::vector<std::vector<std::string>> result;
   ASSERT_NO_THROW(result = stringJaggedArrayOutput(8));
   EXPECT_EQ(result.size(), 8);
@@ -57,21 +53,21 @@ TEST(FooTest, StringJaggedArrayOutput) {
   }
 }
 
-TEST(FooTest, StringJaggedArrayValueInput) {
+TEST(BarTest, StringJaggedArrayValueInput) {
   const std::vector<std::vector<std::string>> data{{"1", "2", "3"}, {"4", "5"}};
-  int                                         size = 0;
+  int                                   size = 0;
   ASSERT_NO_THROW(size = stringJaggedArrayInput(data));
   EXPECT_EQ(size, 2);
 }
 
-TEST(FooTest, StringJaggedArrayRefInput) {
+TEST(BarTest, StringJaggedArrayRefInput) {
   const std::vector<std::vector<std::string>> data{{"1", "2", "3"}, {"4", "5"}};
-  int                                         size = 0;
+  int                                   size = 0;
   ASSERT_NO_THROW(size = stringJaggedArrayRefInput(data));
   EXPECT_EQ(size, 2);
 }
 
-TEST(FooTest, PairVectorOutput) {
+TEST(BarTest, PairVectorOutput) {
   std::vector<std::pair<int, int>> result;
   ASSERT_NO_THROW(result = pairVectorOutput(8));
   EXPECT_EQ(result.size(), 8);
@@ -81,21 +77,21 @@ TEST(FooTest, PairVectorOutput) {
   }
 }
 
-TEST(FooTest, PairVectorValueInput) {
-  const std::vector<std::pair<int, int>> data{{1, 2}, {3, 4}, {5, 6}};
-  int                                    size = 0;
+TEST(BarTest, PairVectorValueInput) {
+  const std::vector<std::pair<int, int>> data{ {1, 2}, {3, 4}, {5, 6} };
+  int                      size = 0;
   ASSERT_NO_THROW(size = pairVectorInput(data));
   EXPECT_EQ(size, 3);
 }
 
-TEST(FooTest, PairVectorRefInput) {
-  const std::vector<std::pair<int, int>> data{{1, 2}, {3, 4}, {5, 6}};
-  int                                    size = 0;
+TEST(BarTest, PairVectorRefInput) {
+  const std::vector<std::pair<int, int>> data{ {1, 2}, {3, 4}, {5, 6} };
+  int                      size = 0;
   ASSERT_NO_THROW(size = pairVectorRefInput(data));
   EXPECT_EQ(size, 3);
 }
 
-TEST(FooTest, PairJaggedArrayOutput) {
+TEST(BarTest, PairJaggedArrayOutput) {
   std::vector<std::vector<std::pair<int, int>>> result;
   ASSERT_NO_THROW(result = pairJaggedArrayOutput(8));
   EXPECT_EQ(result.size(), 8);
@@ -110,47 +106,47 @@ TEST(FooTest, PairJaggedArrayOutput) {
   }
 }
 
-TEST(FooTest, PairJaggedArrayValueInput) {
+TEST(BarTest, PairJaggedArrayValueInput) {
   std::vector<std::vector<std::pair<int, int>>> data{{{1, 1}, {2, 2}, {3, 3}}, {{4, 4}, {5, 5}}};
   int                                           size = 0;
   ASSERT_NO_THROW(size = pairJaggedArrayInput(data));
   EXPECT_EQ(size, 2);
 }
 
-TEST(FooTest, PairJaggedArrayRefInput) {
+TEST(BarTest, PairJaggedArrayRefInput) {
   std::vector<std::vector<std::pair<int, int>>> data{{{1, 1}, {2, 2}, {3, 3}}, {{4, 4}, {5, 5}}};
   int                                           size = 0;
   ASSERT_NO_THROW(size = pairJaggedArrayRefInput(data));
   EXPECT_EQ(size, 2);
 }
 
-TEST(FooTest, StaticMethods) {
-  EXPECT_NO_THROW(Foo::staticFunction(42));
-  EXPECT_NO_THROW(Foo::staticFunction(int64_t{42}));
+TEST(BarTest, StaticMethods) {
+  EXPECT_NO_THROW(Bar::staticFunction(42));
+  EXPECT_NO_THROW(Bar::staticFunction(int64_t{42}));
 }
 
-TEST(FooTest, Constructor) {
-  Foo* b = new Foo();
-  EXPECT_NE(b, nullptr);
+TEST(BarTest, Ctor) {
+  Bar* b = new Bar();
+  ASSERT_NE(b, nullptr);
 }
 
-TEST(FooTest, IntMethods) {
-  Foo foo;
-  ASSERT_NO_THROW(foo.setInt(42));
-  EXPECT_EQ(42, foo.getInt());
+TEST(BarTest, IntMethods) {
+  Bar bar;
+  ASSERT_NO_THROW(bar.setInt(42));
+  EXPECT_EQ(42, bar.getInt());
 }
 
-TEST(FooTest, Int64Methods) {
-  Foo foo;
-  ASSERT_NO_THROW(foo.setInt64(31));
-  EXPECT_EQ(31, foo.getInt64());
+TEST(BarTest, Int64Methods) {
+  Bar bar;
+  ASSERT_NO_THROW(bar.setInt64(31));
+  EXPECT_EQ(31, bar.getInt64());
 }
 
-TEST(FooTest, PrintMethod) {
-  Foo         foo;
+TEST(BarTest, PrintMethod) {
+  Bar bar;
   std::string str("");
-  ASSERT_NO_THROW(str = foo());
-  EXPECT_EQ("\"Foo\":{\"int\":0,\"int64\":0}", str);
+  ASSERT_NO_THROW(str = bar());
+  EXPECT_EQ("\"Bar\":{\"int\":0,\"int64\":0}", str);
 }
 
-} // namespace foo
+} // namespace bar

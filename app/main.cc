@@ -1,7 +1,7 @@
 #include <cstdint>
-#include <foobar/FooBar.hpp>
 #include <iostream>
 #include <string>
+#include "foobar/foobar.h"
 
 int main(int /*argc*/, char** /*argv*/) {
   foobar::freeFunction(int{0});

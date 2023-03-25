@@ -3,24 +3,18 @@
 #include <cstdint>
 #include <string>
 #include <vector>
-#include "Foo/C.pb.h"
+#include "bar/bar.pb.h"
 
-//! @namespace foo The Foo namespace
-namespace foo {
+//! @namespace bar The Bar namespace
+namespace bar {
 //! @defgroup FreeFunction Free function usage.
 //! @{
-/*! @brief Free function in foo namespace.
+/*! @brief Free function in bar namespace.
  * @param level Scope level.*/
 void freeFunction(int level);
-/*! @brief Free function in foo namespace.
+/*! @brief Free function in bar namespace.
  * @param level Scope level.*/
 void freeFunction(int64_t level);
-//! @}
-
-//! @defgroup ProtoFunction Proto function usage.
-/*! @brief Proto function in foo namespace.
- * @param level Scope level.*/
-foo::C protoFunction(int level);
 //! @}
 
 //! @defgroup StringVector Vector of String usage.
@@ -87,17 +81,17 @@ int pairJaggedArrayInput(std::vector<std::vector<std::pair<int, int>>> data);
 int pairJaggedArrayRefInput(const std::vector<std::vector<std::pair<int, int>>>& data);
 //! @}
 
-//! @brief Class Foo.
-class Foo {
+//! @brief Class Bar.
+class Bar {
  public:
   //! @defgroup StaticMembers Static members
   //! @{
 
-  /*! @brief Static method of Foo class.
+  /*! @brief Static method of Bar class.
    * @param[in] level Scope level.*/
   static void staticFunction(int level);
 
-  /*! @brief Static method of Foo class.
+  /*! @brief Static method of Bar class.
    * @param[in] level Scope level.*/
   static void staticFunction(int64_t level);
 
@@ -106,10 +100,10 @@ class Foo {
   //! @defgroup IntegerMembers Integer members
   //! @{
 
-  /*! @brief Method (getter) of Foo class.
+  /*! @brief Method (getter) of Bar class.
    * @return A member value.*/
   int getInt() const;
-  /*! @brief Method (setter) of Foo class.
+  /*! @brief Method (setter) of Bar class.
    * @param[in] input A member value.*/
   void setInt(int input);
 
@@ -118,10 +112,10 @@ class Foo {
   //! @defgroup Int64Members Long Integer members
   //! @{
 
-  /*! @brief Method (getter) of Foo class.
+  /*! @brief Method (getter) of Bar class.
    * @return A member value.*/
   int64_t getInt64() const;
-  /*! @brief Method (setter) of Foo class.
+  /*! @brief Method (setter) of Bar class.
    * @param[in] input A member value.*/
   void setInt64(int64_t input);
 
@@ -134,4 +128,4 @@ class Foo {
   int     _intValue   = 0;
   int64_t _int64Value = 0;
 };
-} // namespace foo
+} // namespace bar

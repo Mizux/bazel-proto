@@ -1,4 +1,4 @@
-#include "foo/Foo.hpp"
+#include "foo/foo.h"
 
 #include <iostream>
 #include <string>

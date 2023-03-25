@@ -1,17 +1,13 @@
 add_library(FooBar "")
-
-target_sources(FooBar
-  PRIVATE
-    include/foobar/FooBar.hpp
-    src/FooBar.cpp)
+target_sources(FooBar PRIVATE foobar.h foobar.cc)
 target_include_directories(FooBar
   PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<INSTALL_INTERFACE:include>)
 target_compile_features(FooBar PUBLIC cxx_std_17)
 set_target_properties(FooBar PROPERTIES
   VERSION ${PROJECT_VERSION}
-  PUBLIC_HEADER include/foobar/FooBar.hpp)
+  PUBLIC_HEADER foobar.h)
 # note: macOS is APPLE and also UNIX !
 if(APPLE)
   set_target_properties(FooBar PROPERTIES
@@ -27,7 +23,10 @@ target_link_libraries(FooBar
   )
 add_library(${PROJECT_NAMESPACE}::FooBar ALIAS FooBar)
 
-add_subdirectory(tests)
+# Test
+if(NOT BUILD_TESTING)
+  add_cpp_test(foobar_test.cc)
+endif()
 
 # Install
 include(GNUInstallDirs)
