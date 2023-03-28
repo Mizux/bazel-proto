@@ -67,7 +67,7 @@ with the following dependencies:
 Foo:
 Bar:
 FooBar: PUBLIC Foo PRIVATE Bar
-FooBarApp: PRIVATE FooBar
+App: PRIVATE FooBar
 ```
 
 note: Since `Foo` is a public dependency of `FooBar`, then `FooBarApp` will
