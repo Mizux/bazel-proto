@@ -1,6 +1,7 @@
 #include <cstdint>
 #include <iostream>
 #include <string>
+#include "absl/strings/str_cat.h"
 #include "foobar/foobar.h"
 
 int main(int /*argc*/, char** /*argv*/) {

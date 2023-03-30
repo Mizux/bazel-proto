@@ -5,6 +5,7 @@ cc_binary(
   srcs = ["main.cc"],
   deps = [
     "//foobar:foobar",
+    "@com_google_absl//absl/strings",
   ],
 )
 
@@ -15,5 +16,6 @@ cc_test(
   deps = [
     ":app",
     "//foobar:foobar",
+    "@com_google_absl//absl/strings",
   ],
 )

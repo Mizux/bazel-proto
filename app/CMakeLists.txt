@@ -11,7 +11,10 @@ elseif(UNIX AND NOT APPLE)
   set_target_properties(App PROPERTIES
     INSTALL_RPATH "$ORIGIN/../${CMAKE_INSTALL_LIBDIR}")
 endif()
-target_link_libraries(App PRIVATE ${PROJECT_NAMESPACE}::FooBar)
+target_link_libraries(App PRIVATE
+  absl::strings
+  ${PROJECT_NAMESPACE}::FooBar
+)
 add_executable(${PROJECT_NAMESPACE}::App ALIAS App)
 
 if(BUILD_TESTING)
