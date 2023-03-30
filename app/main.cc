@@ -4,6 +4,15 @@
 #include "absl/strings/str_cat.h"
 #include "foobar/foobar.h"
 
+namespace foo {
+  // Implementation of the `AbslStringify` interface. This adds `DebugString()`
+  // to the sink. Do not rely on exact format.
+  template <typename Sink>
+    void AbslStringify(Sink& sink, const ::google::protobuf::MessageLite& msg) {
+      sink.Append(msg.DebugString());
+    }
+}
+
 int main(int /*argc*/, char** /*argv*/) {
   foobar::freeFunction(int{0});
   std::cout << std::endl;
