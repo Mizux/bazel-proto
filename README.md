@@ -84,7 +84,7 @@ To build this example you should use:
 
 * on Windows when using MSVC:
   ```sh
-  bazel build -c opt --cxxopt="/std:c++17" --subcommands=true ...
+  bazel build -c opt --action_env=BAZEL_CXXOPTS="/std:c++17" --subcommands=true ...
   ```
 
 ## Running Tests
@@ -98,7 +98,7 @@ To build this example you should use:
 
 * on Windows when using MSVC:
   ```sh
-  bazel test -c opt --cxxopt="/std:c++17" --test_output=all ...
+  bazel test -c opt --action_env=BAZEL_CXXOPTS="/std:c++17" --test_output=all ...
   ```
 
 ## Tutorial
