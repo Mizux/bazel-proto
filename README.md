@@ -79,7 +79,7 @@ To build this example you should use:
 
 * on UNIX:
   ```sh
-  bazel build -c opt --action_env=BAZEL_CXXOPTS="-std=c++17" --subcommands=true ...
+  bazel build -c opt --cxxopt="-std=c++17" --subcommands=true ...
   ```
 
 * on Windows when using MSVC:
@@ -93,7 +93,7 @@ To build this example you should use:
 
 * on UNIX:
   ```sh
-  bazel test -c opt --action_env=BAZEL_CXXOPTS="-std=c++17" --test_output=all ...
+  bazel test -c opt --cxxopt="-std=c++17" --test_output=all ...
   ```
 
 * on Windows when using MSVC:
