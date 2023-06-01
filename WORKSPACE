@@ -36,34 +36,30 @@ new_git_repository(
     name = "zlib",
     build_file = "@com_google_protobuf//:third_party/zlib.BUILD",
     tag = "v1.2.11",
-    #patches = ["//patches:zlib.patch"],
-    #patch_args = ["-p1"],
     remote = "https://github.com/madler/zlib.git",
 )
 
 ## Re2
 git_repository(
     name = "com_google_re2",
-    tag = "2022-04-01",
-    patches = ["//patches:re2-2022-02-01.patch"],
-    patch_args = ["-p1"],
+    tag = "2023-03-01",
     remote = "https://github.com/google/re2.git",
 )
 
 ## Abseil-cpp
 git_repository(
     name = "com_google_absl",
-    tag = "20230125.0",
-    #patches = ["//patches:abseil-cpp-20230125.0.patch"],
-    #patch_args = ["-p1"],
+    tag = "20230125.3",
+    patches = ["//patches:abseil-cpp-20230125.3.patch"],
+    patch_args = ["-p1"],
     remote = "https://github.com/abseil/abseil-cpp.git",
 )
 
 ## Protobuf
 git_repository(
     name = "com_google_protobuf",
-    tag = "v22.2",
-    patches = ["//patches:protobuf-v22.2.patch"],
+    tag = "v23.2",
+    patches = ["//patches:protobuf-v23.2.patch"],
     patch_args = ["-p1"],
     remote = "https://github.com/protocolbuffers/protobuf.git",
 )
