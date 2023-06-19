@@ -6,14 +6,16 @@ jobs:
   # Building using the github runner environement directly.
   windows:
     # Workaround for https://github.com/bazelbuild/bazel/issues/18592
-    runs-on: windows-2019
     strategy:
       matrix:
+        runner: [windows-2022, windows-2019]
         option: [
           '--repo_env=BAZEL_CXXOPTS="/std:c++17"',
           '--action_env=BAZEL_CXXOPTS="/std:c++17"',
           '--cxxopt="/std:c++17"']
-      fail-fast: false
+      fail-fast: false # Don't cancel all jobs if one fails.
+    runs-on: ${{ matrix.runner }}
+    #runs-on: windows-latest
     steps:
     - uses: actions/checkout@v3
     - name: Install Bazel
