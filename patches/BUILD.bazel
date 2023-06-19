@@ -13,6 +13,6 @@
 
 exports_files([
     "abseil-cpp-20230125.3.patch",
-    "protobuf-v23.2.patch",
+    "protobuf-v23.3.patch",
     "zlib.patch",
 ])
