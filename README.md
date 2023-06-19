@@ -1,8 +1,10 @@
 Github-CI:
-[![Build Status][github_linux_bazel_status]][github_linux_bazel_link]
-[![Build Status][github_macos_bazel_status]][github_macos_bazel_link]
-[![Build Status][github_windows_bazel_status]][github_windows_bazel_link]
-[![Build Status][github_amd64_docker_bazel_status]][github_amd64_docker_bazel_link]
+| OS      | Bazel | CMake |
+|:------- | :---: | :---: |
+| Linux   | [![Build Status][github_linux_bazel_status]][github_linux_bazel_link] | [![Build Status][github_linux_cmake_status]][github_linux_cmake_link] |
+| MacOS   | [![Build Status][github_macos_bazel_status]][github_macos_bazel_link] | [![Build Status][github_macos_cmake_status]][github_macos_cmake_link] |
+| Windows | [![Build Status][github_windows_bazel_status]][github_windows_bazel_link] | [![Build Status][github_windows_cmake_status]][github_windows_cmake_link] |
+| Docker | [![Build Status][github_amd64_docker_bazel_status]][github_amd64_docker_bazel_link] | [![Build Status][github_amd64_docker_cmake_status]][github_amd64_docker_cmake_link] |
 
 [github_linux_bazel_status]: https://github.com/Mizux/bazel-proto/actions/workflows/amd64_linux_bazel.yml/badge.svg
 [github_linux_bazel_link]: https://github.com/Mizux/bazel-proto/actions/workflows/amd64_linux_bazel.yml
@@ -12,11 +14,6 @@ Github-CI:
 [github_windows_bazel_link]: https://github.com/Mizux/bazel-proto/actions/workflows/amd64_windows_bazel.yml
 [github_amd64_docker_bazel_status]: https://github.com/Mizux/bazel-proto/actions/workflows/amd64_docker_bazel.yml/badge.svg
 [github_amd64_docker_bazel_link]: https://github.com/Mizux/bazel-proto/actions/workflows/amd64_docker_bazel.yml
-
-[![Build Status][github_linux_cmake_status]][github_linux_cmake_link]
-[![Build Status][github_macos_cmake_status]][github_macos_cmake_link]
-[![Build Status][github_windows_cmake_status]][github_windows_cmake_link]
-[![Build Status][github_amd64_docker_cmake_status]][github_amd64_docker_cmake_link]
 
 [github_linux_cmake_status]: https://github.com/Mizux/bazel-proto/actions/workflows/amd64_linux_cmake.yml/badge.svg
 [github_linux_cmake_link]: https://github.com/Mizux/bazel-proto/actions/workflows/amd64_linux_cmake.yml
