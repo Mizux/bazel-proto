@@ -9,6 +9,7 @@ jobs:
     strategy:
       matrix:
         runner: [windows-2022, windows-2019]
+        python-version: ['3.7', '3.8', '3.9', '3.10']
         option: [
           '--repo_env=BAZEL_CXXOPTS="/std:c++17"',
           '--action_env=BAZEL_CXXOPTS="/std:c++17"',
@@ -18,6 +19,12 @@ jobs:
     #runs-on: windows-latest
     steps:
     - uses: actions/checkout@v3
+    - name: Setup Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Display Python version
+      run: python --version
     - name: Install Bazel
       run: choco install bazel
     - name: Check Bazel
