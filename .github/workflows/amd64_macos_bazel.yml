@@ -8,6 +8,7 @@ jobs:
     strategy:
       matrix:
         option: [
+          '',
           '--repo_env=BAZEL_CXXOPTS="-std=c++17"',
           '--action_env=BAZEL_CXXOPTS="-std=c++17"',
           '--cxxopt="-std=c++17"']
