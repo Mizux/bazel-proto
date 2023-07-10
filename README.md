@@ -75,11 +75,13 @@ note: Since `Foo` is a public dependency of `FooBar`, then `FooBarApp` will
 To build this example you should use:
 
 * on UNIX:
+
   ```sh
   bazel build -c opt --action_env=BAZEL_CXXOPTS="-std=c++17" --subcommands=true ...
   ```
 
 * on Windows when using MSVC:
+
   ```sh
   bazel build -c opt --cxxopt="/std:c++17" --subcommands=true ...
   ```
@@ -89,11 +91,13 @@ To build this example you should use:
 To build this example you should use:
 
 * on UNIX:
+
   ```sh
   bazel test -c opt --action_env=BAZEL_CXXOPTS="-std=c++17" --test_output=all ...
   ```
 
 * on Windows when using MSVC:
+
   ```sh
   bazel test -c opt --cxxopt="/std:c++17" --test_output=all ...
   ```
@@ -152,14 +156,17 @@ Few links on the subject...
 ### Resources
 
 Project layout:
+
 * The Pitchfork Layout Revision 1 (cxx-pflR1)
 
 Bazel:
+
 * https://docs.bazel.build/versions
 
 ### Misc
 
 Image has been generated using [plantuml](http://plantuml.com/):
+
 ```bash
 plantuml -Tsvg docs/{file}.dot
 ```
@@ -173,4 +180,3 @@ Apache 2. See the LICENSE file for details.
 
 This is not an official Google product, it is just code that happens to be
 owned by Google.
-
