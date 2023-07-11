@@ -38,9 +38,10 @@ Github-CI:
 <a href="#license">License</a> |
 </nav>
 
-Bazel/CMake C++ + Protobuf sample with tests and GitHub CI support.
-
+Bazel C++ and Protobuf sample with tests and GitHub CI support.<br>
 This project should run on GNU/Linux, MacOS and Windows.
+
+note: A CMake support is also provided as comparison
 
 ## Requirement
 
