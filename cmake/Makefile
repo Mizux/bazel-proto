@@ -5,8 +5,8 @@ SHA1 := $(shell git rev-parse --verify HEAD)
 
 # General commands
 .PHONY: help
-BOLD=\e[1m
-RESET=\e[0m
+BOLD:=\e[1m
+RESET:=\e[0m
 
 help:
 	@echo -e "${BOLD}SYNOPSIS${RESET}"
@@ -89,7 +89,7 @@ all: build
 MAKEFLAGS += --no-builtin-rules
 .SUFFIXES:
 # Remove some rules from gmake that .SUFFIXES does not remove.
-SUFFIXES =
+SUFFIXES :=
 # Keep all intermediate files
 # ToDo: try to remove it later
 .SECONDARY:
@@ -107,7 +107,7 @@ endif
 DOCKER_RUN_CMD := docker run --rm --init --net=host
 
 # Currently supported distro
-DISTROS = alpine archlinux centos debian fedora opensuse ubuntu
+DISTROS := alpine archlinux centos debian fedora opensuse ubuntu
 
 # $* stem
 # $< first prerequist
@@ -116,7 +116,8 @@ DISTROS = alpine archlinux centos debian fedora opensuse ubuntu
 ############
 ## STAGES ##
 ############
-STAGES = env devel build test install_env install_devel install_build install_test
+STAGES := env devel build test install_env install_devel install_build install_test
+
 define make-stage-target =
 #$$(info STAGE: $1)
 #$$(info Create targets: all_$1 $(addsuffix _$1, $(DISTROS)).)
@@ -164,7 +165,7 @@ clean_all: $(addprefix clean_all_, $(STAGES))
 ##############
 # ref: https://go.dev/doc/install/source#environment
 # ref: https://github.com/containerd/containerd/blob/269548fa27e0089a8b8278fc4fc781d7f65a939b/platforms/platforms.go#L80-L94
-PLATFORMS = \
+PLATFORMS := \
  386 amd64 \
  arm arm64 \
  mips mipsle mips64 mips64le \
@@ -173,8 +174,7 @@ PLATFORMS = \
  s390x
 
 define make-platform-stage-target =
-#$$(info PLATFORM: $1)
-#$$(info STAGE: $2)
+#$$(info PLATFORM: '$1' STAGE: '$2')
 #$$(info Create targets: $1_all_$2 $(addprefix $1_, $(addsuffix _$2, $(DISTROS))).)
 targets_$1_$2 = $(addprefix $1_, $(addsuffix _$2, $(DISTROS)))
 .PHONY: $1_all_$2 $$(targets_$1_$2)
