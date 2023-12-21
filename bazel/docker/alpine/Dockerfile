@@ -1,6 +1,7 @@
 # Create a virtual environment with all tools installed
 # ref: https://hub.docker.com/_/alpine
 FROM alpine:edge AS env
+
 # Install system build dependencies
 ENV PATH=/usr/local/bin:$PATH
 RUN apk add --no-cache git build-base linux-headers zlib-dev
@@ -23,16 +24,12 @@ COPY . .
 FROM devel AS build
 RUN bazel version
 RUN bazel build \
- --host_javabase=@local_jdk//:jdk \
  -c opt \
- --action_env=BAZEL_CXXOPTS="-std=c++17" \
  --subcommands=true \
  ...
 
 FROM build AS test
 RUN bazel test \
- --host_javabase=@local_jdk//:jdk \
  -c opt \
- --action_env=BAZEL_CXXOPTS="-std=c++17" \
  --test_output=all \
  ...
