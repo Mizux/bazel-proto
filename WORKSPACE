@@ -57,8 +57,13 @@ git_repository(
 )
 
 ## Protobuf
+# proto_library and cc_proto_library rules implicitly
+# depend on @com_google_protobuf for protoc and proto runtimes.
+# This statement defines the @com_google_protobuf repo.
 git_repository(
     name = "com_google_protobuf",
+    patches = ["//patches:protobuf-v25.1.patch"],
+    patch_args = ["-p1"],
     tag = "v25.1",
     remote = "https://github.com/protocolbuffers/protobuf.git",
 )
