@@ -18,17 +18,6 @@ https://github.com/bazelbuild/bazelisk/releases/download/v1.20.0/bazelisk-linux-
 && chmod +x bazelisk-linux-amd64 \
 && mv bazelisk-linux-amd64 /usr/local/bin/bazel
 
-# Install Java
-RUN dnf -y update \
-&& dnf -y install java-11-openjdk java-11-openjdk-devel maven \
-&& dnf clean all
-ENV JAVA_HOME=/usr/lib/jvm/java-openjdk
-
-# Install Python
-RUN dnf -y update \
-&& dnf -y install python3 python3-devel python3-pip \
-&& dnf clean all
-
 FROM env AS devel
 WORKDIR /home/project
 COPY . .
