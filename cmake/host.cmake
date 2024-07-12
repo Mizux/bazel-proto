@@ -5,14 +5,18 @@ endif()
 
 message(STATUS "Subproject: HostTools...")
 
+file(RELATIVE_PATH
+  PATCHES_PATH
+  ${CMAKE_CURRENT_BINARY_DIR}/host_tools
+  ${CMAKE_CURRENT_SOURCE_DIR}/patches)
+
 configure_file(
   ${CMAKE_CURRENT_SOURCE_DIR}/cmake/host.CMakeLists.txt
   ${CMAKE_CURRENT_BINARY_DIR}/host_tools/CMakeLists.txt
-  COPYONLY)
+  @ONLY)
 
 add_custom_command(
   OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/host_tools
-  #COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/host.CMakeLists.txt CMakeLists.txt
   COMMAND ${CMAKE_COMMAND} -E remove_directory build
   COMMAND ${CMAKE_COMMAND} -S. -Bbuild -DCMAKE_BUILD_TYPE=Release -DCMAKE_RUNTIME_OUTPUT_DIRECTORY:PATH=${CMAKE_CURRENT_BINARY_DIR}/host_tools/bin
   COMMAND ${CMAKE_COMMAND} --build build --config Release -v
