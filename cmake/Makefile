@@ -77,6 +77,7 @@ help:
 	@echo -e "\t${BOLD}distclean${RESET}: Remove everything."
 	@echo
 	@echo -e "\t${BOLD}NOCACHE=1${RESET}: use 'docker build --no-cache' when building container (default use cache)."
+	@echo -e "\t${BOLD}VERBOSE=1${RESET}: use 'docker build --progress=plain' when building container."
 	@echo
 	@echo -e "branch: $(BRANCH)"
 	@echo -e "sha1: $(SHA1)"
@@ -98,17 +99,28 @@ SUFFIXES :=
 # Docker image name prefix.
 IMAGE := ${PROJECT}/${BUILD_SYSTEM}
 
-ifdef NOCACHE
-DOCKER_BUILD_CMD := docker build --no-cache
-DOCKER_BUILDX_CMD := docker buildx build --no-cache
-else
 DOCKER_BUILD_CMD := docker build
 DOCKER_BUILDX_CMD := docker buildx build
+ifdef NOCACHE
+DOCKER_BUILD_CMD := ${DOCKER_BUILD_CMD} --no-cache
+DOCKER_BUILDX_CMD := ${DOCKER_BUILDX_CMD} --no-cache
+endif
+ifdef VERBOSE
+DOCKER_BUILD_CMD := ${DOCKER_BUILD_CMD} --progress=plain
+DOCKER_BUILDX_CMD := ${DOCKER_BUILDX_CMD} --progress=plain
 endif
 DOCKER_RUN_CMD := docker run --rm --init --net=host
 
 # Currently supported distro
-DISTROS := alpine archlinux centos debian fedora opensuse ubuntu
+DISTROS := \
+ almalinux \
+ alpine \
+ archlinux \
+ debian \
+ fedora \
+ opensuse \
+ rockylinux \
+ ubuntu
 
 # $* stem
 # $< first prerequist
