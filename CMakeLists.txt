@@ -15,6 +15,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+# Set max os target version.
+set(CMAKE_OSX_DEPLOYMENT_TARGET 10.15)
+
 # Default Build Type to be Release
 get_property(isMultiConfig GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
 if(isMultiConfig)
@@ -69,13 +72,29 @@ endif()
 
 # Build deps
 option(BUILD_ZLIB "Build the ZLIB dependency Library" ON)
+message(STATUS "Build ZLIB: ${BUILD_ZLIB}")
+
 option(BUILD_absl "Build the abseil-cpp dependency Library" ON)
+message(STATUS "Build absl: ${BUILD_absl}")
+
 option(BUILD_Protobuf "Build the Protobuf dependency Library" ON)
-option(BUILD_googletest "Build the googletest dependency Library" ON)
+message(STATUS "Build protobuf: ${BUILD_Protobuf}")
 
 # Disable CTest targets
 set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1)
 include(CTest)
+
+if(BUILD_TESTING)
+  option(BUILD_re2 "Build the re2 dependency Library" ON)
+  message(STATUS "Build re2: ${BUILD_re2}")
+endif()
+
+if(BUILD_TESTING)
+  option(BUILD_googletest "Build the googletest dependency Library" ON)
+  message(STATUS "Build googletest: ${BUILD_googletest}")
+else()
+  set(BUILD_googletest OFF)
+endif()
 
 option(BUILD_EXAMPLES "Build examples" ON)
 message(STATUS "Build examples: ${BUILD_EXAMPLES}")
