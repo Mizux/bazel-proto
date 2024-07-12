@@ -1,4 +1,7 @@
 enable_language(CXX)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Check primitive types
 option(CHECK_TYPE "Check primitive type size" OFF)
@@ -41,7 +44,6 @@ include(GNUInstallDirs)
 function(add_cpp_test FILE_NAME)
   message(STATUS "Configuring test ${FILE_NAME}: ...")
   get_filename_component(TEST_NAME ${FILE_NAME} NAME_WE)
-  get_filename_component(TEST_DIR ${FILE_NAME} DIRECTORY)
   get_filename_component(COMPONENT_DIR ${FILE_NAME} DIRECTORY)
   get_filename_component(COMPONENT_NAME ${COMPONENT_DIR} NAME)
 
@@ -99,8 +101,9 @@ macro(get_cpp_proto PROTO_HDRS PROTO_SRCS)
       OUTPUT ${PROTO_SRC} ${PROTO_HDR}
       COMMAND ${PROTOC_PRG}
         "--proto_path=${PROJECT_SOURCE_DIR}"
+        ${PROTO_DIRS}
         "--cpp_out=${PROJECT_BINARY_DIR}"
-        ${PROTO_DIRS} ${PROTO_FILE}
+        ${PROTO_FILE}
       DEPENDS ${PROTO_NAME}.proto ${PROTOC_PRG}
       COMMENT "Generate C++ protocol buffer for ${PROTO_FILE}"
       WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
