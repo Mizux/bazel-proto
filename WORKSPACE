@@ -6,7 +6,7 @@ load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository", "new_git_r
 ## Bazel Skylib rules.
 git_repository(
     name = "bazel_skylib",
-    tag = "1.5.0",
+    tag = "1.7.1",
     remote = "https://github.com/bazelbuild/bazel-skylib.git",
 )
 load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
@@ -15,7 +15,7 @@ bazel_skylib_workspace()
 ## Bazel rules.
 git_repository(
     name = "platforms",
-    tag = "0.0.8",
+    tag = "0.0.10",
     remote = "https://github.com/bazelbuild/platforms.git",
 )
 
@@ -36,24 +36,25 @@ git_repository(
 new_git_repository(
     name = "zlib",
     build_file = "@com_google_protobuf//:third_party/zlib.BUILD",
-    tag = "v1.2.13",
+    tag = "v1.3.1",
     remote = "https://github.com/madler/zlib.git",
-)
-
-## Re2
-git_repository(
-    name = "com_google_re2",
-    tag = "2023-11-01",
-    remote = "https://github.com/google/re2.git",
 )
 
 ## Abseil-cpp
 git_repository(
     name = "com_google_absl",
-    tag = "20230802.1",
-    patches = ["//patches:abseil-cpp-20230802.1.patch"],
+    tag = "20240116.2",
+    patches = ["//patches:abseil-cpp-20240116.2.patch"],
     patch_args = ["-p1"],
     remote = "https://github.com/abseil/abseil-cpp.git",
+)
+
+## Re2
+git_repository(
+    name = "com_google_re2",
+    tag = "2024-04-01",
+    remote = "https://github.com/google/re2.git",
+    repo_mapping = {"@abseil-cpp": "@com_google_absl"},
 )
 
 ## Protobuf
@@ -62,9 +63,9 @@ git_repository(
 # This statement defines the @com_google_protobuf repo.
 git_repository(
     name = "com_google_protobuf",
-    patches = ["//patches:protobuf-v25.1.patch"],
+    patches = ["//patches:protobuf-v27.2.patch"],
     patch_args = ["-p1"],
-    tag = "v25.1",
+    tag = "v27.2",
     remote = "https://github.com/protocolbuffers/protobuf.git",
 )
 # Load common dependencies.
@@ -74,6 +75,6 @@ protobuf_deps()
 ## Testing
 git_repository(
     name = "com_google_googletest",
-    tag = "v1.13.0",
+    tag = "v1.14.0",
     remote = "https://github.com/google/googletest.git",
 )
