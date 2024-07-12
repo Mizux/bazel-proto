@@ -26,12 +26,22 @@ git_repository(
 )
 
 git_repository(
+    name = "rules_python",
+    tag = "0.34.0",
+    remote = "https://github.com/bazelbuild/rules_python.git",
+)
+
+git_repository(
     name = "rules_proto",
     tag = "5.3.0-21.7",
     remote = "https://github.com/bazelbuild/rules_proto.git",
 )
 
 # Dependencies
+## Python
+load("@rules_python//python:repositories.bzl", "py_repositories")
+py_repositories()
+
 ## ZLIB
 new_git_repository(
     name = "zlib",
