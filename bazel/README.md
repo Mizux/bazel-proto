@@ -8,18 +8,20 @@ pros:
 * Most CI provide runner with docker and Makefile installed.
 
 cons:
+
 * Only GNU/Linux distro supported.
-* Could take few GiB (~30 GiB for all distro and all languages)
-  * ~500MiB OS + C++/CMake tools,
+* Could take few GiB.
 
 ## Usage
 
 To get the help simply type:
+
 ```sh
 make
 ```
 
 note: you can also use from top directory
+
 ```sh
 make --directory=bazel
 ```
@@ -27,6 +29,7 @@ make --directory=bazel
 ### Example
 
 For example to test inside an `Alpine` container:
+
 ```sh
 make alpine_test
 ```
@@ -37,12 +40,16 @@ Dockerfile is splitted in several stages.
 
 ![docker](docs/docker.svg)
 
-### Run arm64v8 image on amd64 machine
+## Docker arm64 on amd64 machine
 
-You can build and run `arm64v8` (i.e. `aarch64`) docker container on a `amd64` host (`x86_64`) by enabling qemu support:
+### Setup
+
+You can build and run `arm64` (i.e. `aarch64`) docker container on a `amd64` host (`x86_64`) by enabling qemu support:
+
 ```sh
 docker run --pull always --rm --privileged multiarch/qemu-user-static --reset -p yes
 ```
+
 ref: https://github.com/multiarch/qemu-user-static#getting-started
 
 Then you should be able to run them, e.g.:
@@ -56,10 +63,12 @@ ref: https://github.com/docker-library/official-images#architectures-other-than-
 ref: https://docs.docker.com/buildx/working-with-buildx/
 
 On you enable qemu support (see above), you can list available platform using:
+
 ```sh
 docker buildx ls
 ```
-Then you can build a docker image using one of the available platform
+Then you can build a docker image using one of the available platform:
+
 ```sh
 docker buildx build --platform linux/arm64 ...
 ```
