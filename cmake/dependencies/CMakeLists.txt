@@ -37,6 +37,7 @@ if(BUILD_absl)
     absl
     GIT_REPOSITORY "https://github.com/abseil/abseil-cpp.git"
     GIT_TAG "20240116.2"
+    GIT_SHALLOW TRUE
     PATCH_COMMAND git apply --ignore-whitespace "${CMAKE_CURRENT_LIST_DIR}/../../patches/abseil-cpp-20240116.2.patch"
   )
   FetchContent_MakeAvailable(absl)
@@ -54,10 +55,12 @@ if(BUILD_Protobuf)
   set(protobuf_BUILD_SHARED_LIBS OFF)
   set(protobuf_BUILD_EXPORT OFF)
   set(protobuf_MSVC_STATIC_RUNTIME OFF)
+  #set(protobuf_BUILD_LIBUPB ON)
   FetchContent_Declare(
     Protobuf
     GIT_REPOSITORY "https://github.com/protocolbuffers/protobuf.git"
     GIT_TAG "v27.2"
+    GIT_SHALLOW TRUE
     GIT_SUBMODULES ""
     PATCH_COMMAND git apply --ignore-whitespace "${CMAKE_CURRENT_LIST_DIR}/../../patches/protobuf-v27.2.patch")
   FetchContent_MakeAvailable(Protobuf)
@@ -76,6 +79,7 @@ if(BUILD_re2)
     re2
     GIT_REPOSITORY "https://github.com/google/re2.git"
     GIT_TAG "2024-04-01"
+    GIT_SHALLOW TRUE
     #PATCH_COMMAND git apply --ignore-whitespace "${CMAKE_CURRENT_LIST_DIR}/../../patches/re2-2024-04-01.patch"
   )
   FetchContent_MakeAvailable(re2)
@@ -92,7 +96,9 @@ if(BUILD_googletest)
   FetchContent_Declare(
     googletest
     GIT_REPOSITORY https://github.com/google/googletest.git
-    GIT_TAG v1.14.0)
+    GIT_TAG v1.14.0
+    GIT_SHALLOW TRUE
+  )
   set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
   set(INSTALL_GTEST OFF)
   set(GTEST_HAS_ABSL ON)
