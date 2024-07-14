@@ -9,7 +9,10 @@ jobs:
     strategy:
       matrix:
         # VS-2022 broken see https://github.com/bazelbuild/bazel/issues/18592
-        runner: [windows-2022, windows-2019]
+        runner: [
+          # windows-2019,
+          windows-2022
+        ]
         python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
       fail-fast: false # Don't cancel all jobs if one fails.
     name: ${{ matrix.runner }} • Bazel * Python-${{ matrix.python-version }}
