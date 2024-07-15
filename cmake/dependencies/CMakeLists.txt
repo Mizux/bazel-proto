@@ -59,12 +59,16 @@ if(BUILD_Protobuf)
   FetchContent_Declare(
     Protobuf
     GIT_REPOSITORY "https://github.com/protocolbuffers/protobuf.git"
-    #GIT_TAG "v27.2"
-    GIT_TAG "v26.1"
-    GIT_SHALLOW TRUE
-    GIT_SUBMODULES ""
+    #GIT_TAG "v27.2" # runtime error
     #PATCH_COMMAND git apply --ignore-whitespace "${CMAKE_CURRENT_LIST_DIR}/../../patches/protobuf-v27.2.patch"
+
+    #GIT_TAG "49c83ab799977592744f50df93957ddec1e12e70" # auto gen, runtime error
+    #GIT_TAG "abc9bae7c19d9fff4b0be0ffd3a01f947d3b487a" # Move MetaData, compile fail
+    GIT_TAG "58baeb4c3b664f8918d24cef5151083d9da9767c" # OK, last commit without runtime error
+    #GIT_TAG "v26.1"
     PATCH_COMMAND git apply --ignore-whitespace "${CMAKE_CURRENT_LIST_DIR}/../../patches/protobuf-v26.1.patch"
+    #GIT_SHALLOW TRUE
+    GIT_SUBMODULES ""
   )
   FetchContent_MakeAvailable(Protobuf)
   list(POP_BACK CMAKE_MESSAGE_INDENT)
