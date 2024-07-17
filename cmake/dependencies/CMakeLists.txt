@@ -52,26 +52,29 @@ if(BUILD_Protobuf)
   message(CHECK_START "Fetching Protobuf")
   list(APPEND CMAKE_MESSAGE_INDENT "  ")
   set(protobuf_BUILD_TESTS OFF)
-  set(protobuf_BUILD_SHARED_LIBS OFF)
+  set(protobuf_BUILD_SHARED_LIBS ON)
+  #set(protobuf_BUILD_SHARED_LIBS OFF)
   set(protobuf_BUILD_EXPORT OFF)
   set(protobuf_MSVC_STATIC_RUNTIME OFF)
   #set(protobuf_BUILD_LIBUPB ON)
   FetchContent_Declare(
     Protobuf
+    #SOURCE_DIR "${CMAKE_SOURCE_DIR}/pb"
     GIT_REPOSITORY "https://github.com/protocolbuffers/protobuf.git"
+
     #GIT_TAG "v28.0-rc1"
     #PATCH_COMMAND git apply --ignore-whitespace "${CMAKE_CURRENT_LIST_DIR}/../../patches/protobuf-v28.patch"
 
-    #GIT_TAG "v27.2" # runtime error
-    #PATCH_COMMAND git apply --ignore-whitespace "${CMAKE_CURRENT_LIST_DIR}/../../patches/protobuf-v27.2.patch"
+    GIT_TAG "v27.2" # runtime error
+    PATCH_COMMAND git apply --ignore-whitespace "${CMAKE_CURRENT_LIST_DIR}/../../patches/protobuf-v27.2.patch"
 
     #GIT_TAG "49c83ab799977592744f50df93957ddec1e12e70" # auto gen, runtime error
     #GIT_TAG "abc9bae7c19d9fff4b0be0ffd3a01f947d3b487a" # Move MetaData, compile fail
-    GIT_TAG "58baeb4c3b664f8918d24cef5151083d9da9767c" # OK, last commit without runtime error
+    #GIT_TAG "58baeb4c3b664f8918d24cef5151083d9da9767c" # OK, last commit without runtime error
     #GIT_TAG "v26.1"
-    PATCH_COMMAND git apply --ignore-whitespace "${CMAKE_CURRENT_LIST_DIR}/../../patches/protobuf-v26.1.patch"
+    #PATCH_COMMAND git apply --ignore-whitespace "${CMAKE_CURRENT_LIST_DIR}/../../patches/protobuf-v26.1.patch"
 
-    #GIT_SHALLOW TRUE # to disable when using SHA1
+    GIT_SHALLOW TRUE # to disable when using SHA1
     GIT_SUBMODULES ""
   )
   FetchContent_MakeAvailable(Protobuf)
