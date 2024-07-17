@@ -3,6 +3,7 @@ build/
 build*/
 export/
 cache/
+pb/
 
 # IDE
 .vs/

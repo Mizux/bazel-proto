@@ -10,10 +10,7 @@ set_target_properties(sample PROPERTIES
   CXX_STANDARD 17
   CXX_STANDARD_REQUIRED ON
   VERSION ${PROJECT_VERSION})
-target_link_libraries(sample PRIVATE
-  BazelProto::Foo
-  BazelProto::Bar
-  BazelProto::FooBar)
+target_link_libraries(sample PRIVATE BazelProto::Foo)
 
 if(BUILD_TESTING)
   add_test(NAME sample_UT COMMAND sample)

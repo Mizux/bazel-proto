@@ -1,5 +1,4 @@
 exports_files([
-  "ZLIB.patch",
-  "abseil-cpp-20240116.2.patch",
-  "protobuf-v27.2.patch",
+  "abseil-cpp-20240722.0.patch",
+  "protobuf-v29.3.patch",
 ])

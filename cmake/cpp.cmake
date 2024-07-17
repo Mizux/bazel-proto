@@ -61,8 +61,6 @@ function(add_cpp_test FILE_NAME)
     #Catch2 Catch2WithMain
     GTest::gtest GTest::gtest_main
     ${PROJECT_NAMESPACE}::Foo
-    ${PROJECT_NAMESPACE}::Bar
-    ${PROJECT_NAMESPACE}::FooBar
   )
 
   if(BUILD_TESTING)
@@ -114,9 +112,6 @@ macro(get_cpp_proto PROTO_HDRS PROTO_SRCS)
 endmacro()
 
 add_subdirectory(foo)
-add_subdirectory(bar)
-add_subdirectory(foobar)
-add_subdirectory(app)
 
 # Install
 install(EXPORT ${PROJECT_NAME}Targets
@@ -163,8 +158,7 @@ function(add_cpp_example FILE_NAME)
   target_compile_features(${EXAMPLE_NAME} PRIVATE cxx_std_17)
   target_link_libraries(${EXAMPLE_NAME} PRIVATE
     ${PROJECT_NAMESPACE}::Foo
-    ${PROJECT_NAMESPACE}::Bar
-    ${PROJECT_NAMESPACE}::FooBar)
+  )
 
   include(GNUInstallDirs)
   install(TARGETS ${EXAMPLE_NAME})
