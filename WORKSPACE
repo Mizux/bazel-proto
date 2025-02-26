@@ -21,13 +21,13 @@ git_repository(
 
 git_repository(
     name = "rules_cc",
-    tag = "0.0.9",
+    tag = "0.1.1",
     remote = "https://github.com/bazelbuild/rules_cc.git",
 )
 
 git_repository(
     name = "rules_python",
-    tag = "0.34.0",
+    tag = "0.40.0",
     remote = "https://github.com/bazelbuild/rules_python.git",
 )
 
@@ -70,7 +70,6 @@ git_repository(
 ## Protobuf
 # proto_library and cc_proto_library rules implicitly
 # depend on @com_google_protobuf for protoc and proto runtimes.
-# This statement defines the @com_google_protobuf repo.
 git_repository(
     name = "com_google_protobuf",
     patches = ["//patches:protobuf-v27.2.patch"],
@@ -78,13 +77,13 @@ git_repository(
     tag = "v27.2",
     remote = "https://github.com/protocolbuffers/protobuf.git",
 )
-# Load common dependencies.
+
 load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
 protobuf_deps()
 
 ## Testing
 git_repository(
     name = "com_google_googletest",
-    tag = "v1.14.0",
+    tag = "v1.15.2",
     remote = "https://github.com/google/googletest.git",
 )
