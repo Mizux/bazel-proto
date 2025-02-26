@@ -3,6 +3,10 @@ name: amd64 Windows Bazel
 
 on: [push, pull_request, workflow_dispatch]
 
+concurrency:
+  group: ${{github.workflow}}-${{github.ref}}
+  cancel-in-progress: true
+
   # Building using the github runner environement directly.
 jobs:
   native:
@@ -15,12 +19,12 @@ jobs:
         ]
         python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
       fail-fast: false # Don't cancel all jobs if one fails.
-    name: ${{ matrix.runner }} • Bazel * Python-${{ matrix.python-version }}
-    runs-on: ${{ matrix.runner }}
+    name: ${{matrix.runner}}•Bazel*Py${{matrix.python-version}}
+    runs-on: ${{matrix.runner}}
     steps:
       - uses: actions/checkout@v4
       - name: Setup Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
       - name: Display Python version
