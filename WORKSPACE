@@ -53,8 +53,8 @@ new_git_repository(
 ## Abseil-cpp
 git_repository(
     name = "com_google_absl",
-    tag = "20240116.2",
-    patches = ["//patches:abseil-cpp-20240116.2.patch"],
+    tag = "20240722.0",
+    patches = ["//patches:abseil-cpp-20240722.0.patch"],
     patch_args = ["-p1"],
     remote = "https://github.com/abseil/abseil-cpp.git",
 )
@@ -72,9 +72,9 @@ git_repository(
 # depend on @com_google_protobuf for protoc and proto runtimes.
 git_repository(
     name = "com_google_protobuf",
-    patches = ["//patches:protobuf-v27.2.patch"],
+    patches = ["//patches:protobuf-v29.3.patch"],
     patch_args = ["-p1"],
-    tag = "v27.2",
+    tag = "v29.3",
     remote = "https://github.com/protocolbuffers/protobuf.git",
 )
 
