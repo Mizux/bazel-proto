@@ -21,7 +21,7 @@ jobs:
       - uses: bazel-contrib/setup-bazel@0.8.4
         with:
           bazelisk-cache: true
-          disk-cache: ${{ github.workflow }}
+          disk-cache: ${{github.workflow}}
           repository-cache: true
       - name: Show Bazel version
         run: bazel --version
@@ -54,7 +54,7 @@ jobs:
       - uses: bazel-contrib/setup-bazel@0.8.4
         with:
           bazelisk-cache: true
-          disk-cache: ${{ github.workflow }}
+          disk-cache: ${{github.workflow}}
           repository-cache: true
       - name: Show Bazel version
         run: bazel --version
@@ -78,3 +78,9 @@ jobs:
           --test_output=errors
           --noenable_bzlmod --enable_workspace
           //...
+
+  amd64_linux_bazel:
+    runs-on: ubuntu-latest
+    needs: bzlmod, workspace
+    steps:
+      - uses: actions/checkout@v4
