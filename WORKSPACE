@@ -6,16 +6,18 @@ load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository", "new_git_r
 ## Bazel Skylib rules.
 git_repository(
     name = "bazel_skylib",
-    tag = "1.7.1",
+    commit = "27d429d8d036af3d010be837cc5924de1ca8d163",
+    #tag = "1.7.1",
     remote = "https://github.com/bazelbuild/bazel-skylib.git",
 )
 load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
 bazel_skylib_workspace()
 
-## Bazel rules.
+## Bazel rules...
 git_repository(
     name = "platforms",
-    tag = "0.0.10",
+    commit = "05ec3a3df23fde62471f8288e344cc021dd87bab",
+    #tag = "0.0.10",
     remote = "https://github.com/bazelbuild/platforms.git",
 )
 
@@ -27,20 +29,29 @@ git_repository(
 
 git_repository(
     name = "rules_python",
-    tag = "0.40.0",
+    commit = "1944874f6ba507f70d8c5e70df84622e0c783254",
+    #tag = "0.40.0",
     remote = "https://github.com/bazelbuild/rules_python.git",
 )
 
+load("@rules_python//python:repositories.bzl", "py_repositories")
+py_repositories()
+
+git_repository(
+    name = "rules_java",
+    tag = "8.9.0",
+    remote = "https://github.com/bazelbuild/rules_java.git",
+)
+
+load("@rules_java//java:rules_java_deps.bzl", "rules_java_dependencies")
+rules_java_dependencies()
+
 git_repository(
     name = "rules_proto",
-    tag = "5.3.0-21.7",
+    tag = "7.1.0",
     remote = "https://github.com/bazelbuild/rules_proto.git",
 )
 
-# Dependencies
-## Python
-load("@rules_python//python:repositories.bzl", "py_repositories")
-py_repositories()
 
 ## ZLIB
 new_git_repository(
