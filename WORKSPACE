@@ -1,4 +1,4 @@
-workspace(name = "org_mizux_bazelproto")
+workspace(name = "bazel-proto")
 
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository", "new_git_repository")
 
@@ -23,9 +23,20 @@ git_repository(
 
 git_repository(
     name = "rules_cc",
-    tag = "0.1.1",
+    commit = "a1162270a0bb680190e8b4f3dab066f15a1ede6c",
+    #tag = "0.1.1",
     remote = "https://github.com/bazelbuild/rules_cc.git",
 )
+
+git_repository(
+    name = "rules_java",
+    commit = "34d7e1bd22b31594c5de10c2d87c3dc6ab8efa74",
+    #tag = "8.9.0",
+    remote = "https://github.com/bazelbuild/rules_java.git",
+)
+
+load("@rules_java//java:rules_java_deps.bzl", "rules_java_dependencies")
+rules_java_dependencies()
 
 git_repository(
     name = "rules_python",
@@ -38,44 +49,20 @@ load("@rules_python//python:repositories.bzl", "py_repositories")
 py_repositories()
 
 git_repository(
-    name = "rules_java",
-    tag = "8.9.0",
-    remote = "https://github.com/bazelbuild/rules_java.git",
-)
-
-load("@rules_java//java:rules_java_deps.bzl", "rules_java_dependencies")
-rules_java_dependencies()
-
-git_repository(
     name = "rules_proto",
-    tag = "7.1.0",
+    commit = "4904e1ca79182d5a3779ecbd23273285ccd70e5c",
+    #tag = "7.1.0",
     remote = "https://github.com/bazelbuild/rules_proto.git",
-)
-
-
-## ZLIB
-new_git_repository(
-    name = "zlib",
-    build_file = "@com_google_protobuf//:third_party/zlib.BUILD",
-    tag = "v1.3.1",
-    remote = "https://github.com/madler/zlib.git",
 )
 
 ## Abseil-cpp
 git_repository(
     name = "com_google_absl",
-    tag = "20240722.0",
+    commit = "4447c7562e3bc702ade25105912dce503f0c4010",
+    #tag = "20240722.0",
     patches = ["//patches:abseil-cpp-20240722.0.patch"],
     patch_args = ["-p1"],
     remote = "https://github.com/abseil/abseil-cpp.git",
-)
-
-## Re2
-git_repository(
-    name = "com_google_re2",
-    tag = "2024-04-01",
-    remote = "https://github.com/google/re2.git",
-    repo_mapping = {"@abseil-cpp": "@com_google_absl"},
 )
 
 ## Protobuf
@@ -85,7 +72,8 @@ git_repository(
     name = "com_google_protobuf",
     patches = ["//patches:protobuf-v29.3.patch"],
     patch_args = ["-p1"],
-    tag = "v29.3",
+    commit = "b407e8416e3893036aee5af9a12bd9b6a0e2b2e6",
+    #tag = "v29.3",
     remote = "https://github.com/protocolbuffers/protobuf.git",
 )
 
@@ -95,6 +83,7 @@ protobuf_deps()
 ## Testing
 git_repository(
     name = "com_google_googletest",
-    tag = "v1.15.2",
+    commit = "b514bdc898e2951020cbdca1304b75f5950d1f59",
+    #tag = "v1.15.2",
     remote = "https://github.com/google/googletest.git",
 )
