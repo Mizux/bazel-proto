@@ -30,9 +30,12 @@ endif()
 if(BUILD_absl)
   message(CHECK_START "Fetching Abseil-cpp")
   list(APPEND CMAKE_MESSAGE_INDENT "  ")
-  set(ABSL_ENABLE_INSTALL ON)
   set(ABSL_USE_SYSTEM_INCLUDES ON)
+  # We want Abseil to declare what C++ standard it was compiled with.
   set(ABSL_PROPAGATE_CXX_STD ON)
+  # We want Abseil to keep the INSTALL rules enabled, even though it is a
+  # subproject. Otherwise the install rules in this project break.
+  set(ABSL_ENABLE_INSTALL ON)
   set(ABSL_BUILD_TESTING OFF)
   FetchContent_Declare(
     absl
