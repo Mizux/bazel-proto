@@ -7,10 +7,9 @@ concurrency:
   group: ${{github.workflow}}-${{github.ref}}
   cancel-in-progress: true
 
+# Building using the github runner environement directly.
 jobs:
-  # Building using the github runner environement directly.
-  visual-studio:
-    # ref: https://github.com/actions/runner-images
+  native:
     strategy:
       matrix:
         runner: [

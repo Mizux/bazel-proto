@@ -7,8 +7,8 @@ concurrency:
   group: ${{github.workflow}}-${{github.ref}}
   cancel-in-progress: true
 
+# Building using the github runner environement directly.
 jobs:
-  # Building using the github runner environement directly.
   linux:
     runs-on: ubuntu-latest
     strategy:

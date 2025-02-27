@@ -1,5 +1,5 @@
 # ref: https://github.com/actions/runner-images
-name: amd64 macOS CMake
+name: amd64 MacOS CMake
 
 on: [push, pull_request, workflow_dispatch]
 
@@ -7,9 +7,9 @@ concurrency:
   group: ${{github.workflow}}-${{github.ref}}
   cancel-in-progress: true
 
+# Building using the github runner environement directly.
 jobs:
-  # Building using the github runner environement directly.
-  macos:
+  native:
     runs-on: macos-latest
     strategy:
        matrix:
