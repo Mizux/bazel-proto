@@ -13,25 +13,35 @@ git_repository(
 load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
 bazel_skylib_workspace()
 
+# Needed by rules_java
+git_repository(
+    name = "bazel_features",
+    commit = "3f23ff44ff85416d96566bee8e407694cdb6f1f8",
+    #tag = "v1.32.0",
+    remote = "https://github.com/bazel-contrib/bazel_features.git",
+)
+load("@bazel_features//:deps.bzl", "bazel_features_deps")
+bazel_features_deps()
+
 ## Bazel rules...
 git_repository(
     name = "platforms",
-    commit = "05ec3a3df23fde62471f8288e344cc021dd87bab",
-    #tag = "0.0.10",
+    commit = "dd28c190c563531c06ba3bd64eca1cc9ca3e667f",
+    #tag = "0.0.11",
     remote = "https://github.com/bazelbuild/platforms.git",
 )
 
 git_repository(
     name = "rules_cc",
-    commit = "a1162270a0bb680190e8b4f3dab066f15a1ede6c",
-    #tag = "0.1.1",
+    #commit = "a1162270a0bb680190e8b4f3dab066f15a1ede6c",
+    tag = "0.1.1",
     remote = "https://github.com/bazelbuild/rules_cc.git",
 )
 
 git_repository(
     name = "rules_java",
-    commit = "34d7e1bd22b31594c5de10c2d87c3dc6ab8efa74",
-    #tag = "8.9.0",
+    #commit = "34d7e1bd22b31594c5de10c2d87c3dc6ab8efa74",
+    tag = "8.13.0",
     remote = "https://github.com/bazelbuild/rules_java.git",
 )
 
@@ -48,20 +58,13 @@ git_repository(
 load("@rules_python//python:repositories.bzl", "py_repositories")
 py_repositories()
 
-git_repository(
-    name = "rules_proto",
-    commit = "4904e1ca79182d5a3779ecbd23273285ccd70e5c",
-    #tag = "7.1.0",
-    remote = "https://github.com/bazelbuild/rules_proto.git",
-)
-
 ## Abseil-cpp
 git_repository(
-    name = "com_google_absl",
-    commit = "4447c7562e3bc702ade25105912dce503f0c4010",
-    #tag = "20240722.0",
-    patches = ["//patches:abseil-cpp-20240722.0.patch"],
-    patch_args = ["-p1"],
+    name = "abseil-cpp",
+    #commit = "4447c7562e3bc702ade25105912dce503f0c4010",
+    tag = "20250512.1",
+    #patches = ["//patches:abseil-cpp-20240722.0.patch"],
+    #patch_args = ["-p1"],
     remote = "https://github.com/abseil/abseil-cpp.git",
 )
 
@@ -69,21 +72,34 @@ git_repository(
 # proto_library and cc_proto_library rules implicitly
 # depend on @com_google_protobuf for protoc and proto runtimes.
 git_repository(
-    name = "com_google_protobuf",
-    patches = ["//patches:protobuf-v29.3.patch"],
-    patch_args = ["-p1"],
-    commit = "b407e8416e3893036aee5af9a12bd9b6a0e2b2e6",
-    #tag = "v29.3",
+    name = "protobuf",
+    #patches = ["//patches:protobuf-v29.3.patch"],
+    #patch_args = ["-p1"],
+    #commit = "b407e8416e3893036aee5af9a12bd9b6a0e2b2e6",
+    tag = "v29.3",
     remote = "https://github.com/protocolbuffers/protobuf.git",
 )
 
-load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
+load("@protobuf//:protobuf_deps.bzl", "protobuf_deps")
 protobuf_deps()
+
+git_repository(
+    name = "rules_proto",
+    #commit = "4904e1ca79182d5a3779ecbd23273285ccd70e5c",
+    tag = "7.1.0",
+    remote = "https://github.com/bazelbuild/rules_proto.git",
+)
+
+load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies")
+rules_proto_dependencies()
+
+load("@rules_proto//proto:toolchains.bzl", "rules_proto_toolchains")
+rules_proto_toolchains()
 
 ## Testing
 git_repository(
-    name = "com_google_googletest",
-    commit = "b514bdc898e2951020cbdca1304b75f5950d1f59",
-    #tag = "v1.15.2",
+    name = "googletest",
+    #commit = "b514bdc898e2951020cbdca1304b75f5950d1f59",
+    tag = "v1.17.0",
     remote = "https://github.com/google/googletest.git",
 )
