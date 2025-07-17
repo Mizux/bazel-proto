@@ -10,7 +10,7 @@ RESET:=\e[0m
 
 help:
 	@echo -e "${BOLD}SYNOPSIS${RESET}"
-	@echo -e "\tmake <target> [NOCACHE=1]"
+	@echo -e "\tmake <target> [NOCACHE=1] [VERBOSE=1]"
 	@echo
 	@echo -e "${BOLD}DESCRIPTION${RESET}"
 	@echo -e "\ttest build inside docker container to have a reproductible build."
@@ -22,8 +22,8 @@ help:
 	@echo -e "\t${BOLD}<distro>_<stage>${RESET}: build a <stage> docker image for a specific distro."
 	@echo -e "\t${BOLD}save_<distro>_<stage>${RESET}: Save a <stage> docker image for a specific distro."
 	@echo -e "\t${BOLD}sh_<distro>_<stage>${RESET}: run a container using the <stage> docker image specified (debug purpose)."
-	@echo -e "\t${BOLD}clean_<distro>_<stage>${RESET}: Remove cache and docker image."
-	@echo -e "\t${BOLD}clean_native${RESET}: Remove ALL caches and docker images."
+	@echo -e "\t${BOLD}clean_<distro>_<stage>${RESET}: Remove a <stage> docker image for a specific distro."
+	@echo -e "\t${BOLD}clean_all${RESET}: Remove ALL caches and docker images."
 	@echo
 	@echo -e "\tWith ${BOLD}<distro>${RESET}:"
 	@echo -e "\t\t${BOLD}almalinux${RESET} (latest)"
@@ -34,7 +34,7 @@ help:
 	@echo -e "\t\t${BOLD}opensuse${RESET} (tumbleweed)"
 	@echo -e "\t\t${BOLD}rockylinux${RESET} (9)"
 	@echo -e "\t\t${BOLD}ubuntu${RESET} (rolling)"
-	@echo -e "\t\t${BOLD}all${RESET} trigger ALL DISTROS."
+	@echo -e "\t\t${BOLD}all${RESET}: trigger ALL DISTROS."
 	@echo
 	@echo -e "\tWith ${BOLD}<stage>${RESET}:"
 	@echo -e "\t\t${BOLD}env${RESET}"
@@ -130,7 +130,7 @@ STAGES := env devel build test
 define make-stage-target =
 #$$(info STAGE: $1)
 #$$(info Create targets: all_$1 $(addsuffix _$1, $(DISTROS)).)
-targets_$1 = $(addsuffix _$1, $(DISTROS))
+targets_$1 := $(addsuffix _$1, $(DISTROS))
 .PHONY: all_$1 $$(targets_$1)
 all_$1: $$(targets_$1)
 $$(targets_$1): %_$1: docker/%/Dockerfile
@@ -138,7 +138,7 @@ $$(targets_$1): %_$1: docker/%/Dockerfile
 	${DOCKER_BUILD_CMD} --target=$1 --tag ${IMAGE}:$$*_$1 -f $$< ..
 
 #$$(info Create targets: save_all_$1 $(addprefix save_, $(addsuffix _$1, $(DISTROS))) (debug).)
-save_targets_$1 = $(addprefix save_, $(addsuffix _$1, $(DISTROS)))
+save_targets_$1 := $(addprefix save_, $(addsuffix _$1, $(DISTROS)))
 .PHONY: save_all_$1 $$(save_targets_$1)
 save_all_$1: $$(save_targets_$1)
 $$(save_targets_$1): save_%_$1: cache/%/docker_$1.tar
@@ -148,13 +148,13 @@ cache/%/docker_$1.tar: %_$1
 	docker save ${IMAGE}:$$*_$1 -o $$@
 
 #$$(info Create targets: $(addprefix sh_, $(addsuffix _$1, $(DISTROS))) (debug).)
-sh_targets_$1 = $(addprefix sh_, $(addsuffix _$1, $(DISTROS)))
+sh_targets_$1 := $(addprefix sh_, $(addsuffix _$1, $(DISTROS)))
 .PHONY: $$(sh_targets_$1)
 $$(sh_targets_$1): sh_%_$1: %_$1
 	${DOCKER_RUN_CMD} -it --name ${PROJECT}_${BUILD_SYSTEM}_$$*_$1 ${IMAGE}:$$*_$1
 
 #$$(info Create targets: clean_all_$1 $(addprefix clean_, $(addsuffix _$1, $(DISTROS))).)
-clean_targets_$1 = $(addprefix clean_, $(addsuffix _$1, $(DISTROS)))
+clean_targets_$1 := $(addprefix clean_, $(addsuffix _$1, $(DISTROS)))
 .PHONY: clean_all_$1 $$(clean_targets_$1)
 clean_all_$1: $$(clean_targets_$1)
 $$(clean_targets_$1): clean_%_$1:
@@ -185,15 +185,15 @@ PLATFORMS := \
 define make-platform-stage-target =
 #$$(info PLATFORM: '$1' STAGE: '$2')
 #$$(info Create targets: $1_all_$2 $(addprefix $1_, $(addsuffix _$2, $(DISTROS))).)
-targets_$1_$2 = $(addprefix $1_, $(addsuffix _$2, $(DISTROS)))
+targets_$1_$2 := $(addprefix $1_, $(addsuffix _$2, $(DISTROS)))
 .PHONY: $1_all_$2 $$(targets_$1_$2)
 $1_all_$2: $$(targets_$1_$2)
 $$(targets_$1_$2): $1_%_$2: docker/%/Dockerfile
 	#@docker image rm -f ${IMAGE}:$1_$$*_$2 2>/dev/null
 	${DOCKER_BUILDX_CMD} --platform linux/$1 --target=$2 --tag ${IMAGE}:$1_$$*_$2 -f $$< ..
 
-#$$(info Create targets: save_$1_all_$2 $(addprefix save_$1_, $(addsuffix _$2, $(DISTROS))) (debug).)
-save_targets_$1_$2 = $(addprefix save_$1_, $(addsuffix _$2, $(DISTROS)))
+#$$(info Create save targets: save_$1_all_$2 $(addprefix save_$1_, $(addsuffix _$2, $(DISTROS))) (debug).)
+save_targets_$1_$2 := $(addprefix save_$1_, $(addsuffix _$2, $(DISTROS)))
 .PHONY: save_$1_all_$2 $$(save_targets_$1_$2)
 save_$1_all_$2: $$(save_targets_$1_$2)
 $$(save_targets_$1_$2): save_$1_%_$2: cache/$1/%/docker_$2.tar
@@ -202,14 +202,14 @@ cache/$1/%/docker_$2.tar: $1_%_$2
 	mkdir -p cache/$1/$$*
 	docker save ${IMAGE}:$1_$$*_$2 -o $$@
 
-#$$(info Create targets: $(addprefix sh_$1_, $(addsuffix _$2, $(DISTROS))) (debug).)
-sh_targets_$1_$2 = $(addprefix sh_$1_, $(addsuffix _$2, $(DISTROS)))
+#$$(info Create sh targets: $(addprefix sh_$1_, $(addsuffix _$2, $(DISTROS))) (debug).)
+sh_targets_$1_$2 := $(addprefix sh_$1_, $(addsuffix _$2, $(DISTROS)))
 .PHONY: $$(sh_targets_$1_$2)
 $$(sh_targets_$1_$2): sh_$1_%_$2: $1_%_$2
 	${DOCKER_RUN_CMD} --platform linux/$1 -it --name ${PROJECT}_${BUILD_SYSTEM}_$1_$$*_$2 ${IMAGE}:$1_$$*_$2
 
 #$$(info Create targets: clean_$1_all_$2 $(addprefix clean_$1_, $(addsuffix _$2, $(DISTROS))).)
-clean_targets_$1_$2 = $(addprefix clean_$1_, $(addsuffix _$2, $(DISTROS)))
+clean_targets_$1_$2 := $(addprefix clean_$1_, $(addsuffix _$2, $(DISTROS)))
 .PHONY: clean_$1_all_$2 $$(clean_targets_$1_$2)
 clean_$1_all_$2: $$(clean_targets_$1_$2)
 $$(clean_targets_$1_$2): clean_$1_%_$2:
