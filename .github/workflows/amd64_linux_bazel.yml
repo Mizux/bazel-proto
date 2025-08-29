@@ -12,7 +12,7 @@ jobs:
   bzlmod:
     strategy:
       matrix:
-        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
+        python-version: ['3.9', '3.10', '3.11', '3.12']
       fail-fast: false
     name: Linux•Bazel(bzlmod)•Py${{matrix.python-version}}
     runs-on: ubuntu-latest
@@ -24,7 +24,7 @@ jobs:
           disk-cache: ${{github.workflow}}
           repository-cache: true
       - name: Show Bazel version
-        run: bazel --version
+        run: bazel version
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
@@ -57,7 +57,7 @@ jobs:
           disk-cache: ${{github.workflow}}
           repository-cache: true
       - name: Show Bazel version
-        run: bazel --version
+        run: bazel version
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
