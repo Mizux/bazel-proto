@@ -66,9 +66,12 @@ else()
   endforeach()
 endif()
 
-if(BUILD_SHARED_LIBS AND MSVC)
+if(MSVC AND BUILD_SHARED_LIBS)
   set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 endif()
+
+# Enable CCache if any
+include(ccache)
 
 # Build deps
 option(BUILD_ZLIB "Build the ZLIB dependency Library" ON)
