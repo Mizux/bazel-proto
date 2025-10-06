@@ -10,11 +10,7 @@ concurrency:
 # Building using the github runner environement directly.
 jobs:
   bzlmod:
-    strategy:
-      matrix:
-        python-version: ['3.9', '3.10', '3.11', '3.12']
-      fail-fast: false
-    name: Linux•Bazel(bzlmod)•Py${{matrix.python-version}}
+    name: Linux•Bazel(bzlmod)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -25,26 +21,10 @@ jobs:
           repository-cache: true
       - name: Show Bazel version
         run: bazel version
-      - name: Setup Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: ${{matrix.python-version}}
-      - name: Display Python version
-        run: python --version
       - name: Build
-        run: >
-          bazel build
-          -c opt
-          --subcommands=pretty_print
-          --enable_bzlmod
-          //...
+        run: bazel build --config=ci //...
       - name: Test
-        run: >
-          bazel test
-          -c opt
-          --test_output=errors
-          --enable_bzlmod
-          //...
+        run: bazel test --config=ci //...
 
   workspace:
     name: Linux•Bazel(workspace)
@@ -58,24 +38,14 @@ jobs:
           repository-cache: true
       - name: Show Bazel version
         run: bazel version
-      - name: Setup Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: ${{matrix.python-version}}
-      - name: Display Python version
-        run: python --version
       - name: Build
         run: >
-          bazel build
-          -c opt
-          --subcommands=pretty_print
+          bazel build --config=ci
           --noenable_bzlmod --enable_workspace
           //...
       - name: Test
         run: >
-          bazel test
-          -c opt
-          --test_output=errors
+          bazel test --config=ci
           --noenable_bzlmod --enable_workspace
           //...
 
