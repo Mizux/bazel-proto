@@ -1,9 +1,15 @@
 workspace(name = "bazel-proto")
-
 load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository", "new_git_repository")
 
+################################################################################
+#
+# WORKSPACE is being deprecated in favor of the new Bzlmod dependency system.
+# It will be removed at some point in the future.
+#
+################################################################################
+
 # Bazel Extensions
-## Bazel Skylib rules.
+## Needed for Abseil.
 git_repository(
     name = "bazel_skylib",
     commit = "56a2abbaf131332835ab2721a258ea3c763a7178",
@@ -15,13 +21,14 @@ bazel_skylib_workspace()
 
 git_repository(
     name = "bazel_features",
-    tag = "v1.32.0",
+    commit = "3f23ff44ff85416d96566bee8e407694cdb6f1f8",
+    #tag = "v1.32.0",
     remote = "https://github.com/bazel-contrib/bazel_features.git",
 )
 load("@bazel_features//:deps.bzl", "bazel_features_deps")
 bazel_features_deps()
 
-## Bazel rules...
+## Bazel rules.
 git_repository(
     name = "platforms",
     commit = "ab99943ab6bed53cff461a3afa99fc79d31e4351",
@@ -48,6 +55,23 @@ rules_proto_dependencies()
 load("@rules_proto//proto:toolchains.bzl", "rules_proto_toolchains")
 rules_proto_toolchains()
 
+## Abseil-cpp
+git_repository(
+    name = "abseil-cpp",
+    commit = "987c57f325f7fa8472fa84e1f885f7534d391b0d",
+    #tag = "20250814.0",
+    remote = "https://github.com/abseil/abseil-cpp.git",
+)
+
+## Re2
+git_repository(
+    name = "re2",
+    commit = "6dcd83d60f7944926bfd308cc13979fc53dd69ca",
+    #tag = "2024-07-02",
+    remote = "https://github.com/google/re2.git",
+    #repo_mapping = {"@abseil-cpp": "@com_google_absl"},
+)
+
 ## Protobuf
 # proto_library and cc_proto_library rules implicitly
 # depend on @com_google_protobuf for protoc and proto runtimes.
@@ -60,7 +84,8 @@ git_repository(
 load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
 protobuf_deps()
 
-## Testing
+# Testing
+## Googletest
 git_repository(
     name = "googletest",
     commit = "52eb8108c5bdec04579160ae17225d66034bd723",

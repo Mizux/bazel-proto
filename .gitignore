@@ -1,4 +1,5 @@
 bazel-*
+user.bazelrc
 build/
 build*/
 export/
@@ -16,3 +17,6 @@ pb/
 compile_commands.json
 *.swp
 *.user
+
+# Ignore Bzlmod lock file until it is more stable
+MODULE.bazel.lock
