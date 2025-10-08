@@ -4,7 +4,7 @@ Github-CI:
 | Linux   | [![Build Status][amd64_linux_bazel_status]][amd64_linux_bazel_link] | [![Build Status][amd64_linux_cmake_status]][amd64_linux_cmake_link] |
 | MacOS   | [![Build Status][amd64_macos_bazel_status]][amd64_macos_bazel_link] | [![Build Status][amd64_macos_cmake_status]][amd64_macos_cmake_link] |
 | MacOS   | [![Build Status][arm64_macos_bazel_status]][arm64_macos_bazel_link] | [![Build Status][arm64_macos_cmake_status]][arm64_macos_cmake_link] |
-| Windows | NA | [![Build Status][amd64_windows_cmake_status]][amd64_windows_cmake_link] |
+| Windows | [![Build Status][amd64_windows_bazel_status]][amd64_windows_bazel_link] | [![Build Status][amd64_windows_cmake_status]][amd64_windows_cmake_link] |
 | Docker  | [![Build Status][amd64_docker_bazel_status]][amd64_docker_bazel_link] | [![Build Status][amd64_docker_cmake_status]][amd64_docker_cmake_link] |
 
 [amd64_linux_bazel_status]: ./../../actions/workflows/amd64_linux_bazel.yml/badge.svg
@@ -13,6 +13,8 @@ Github-CI:
 [amd64_macos_bazel_link]: ./../../actions/workflows/amd64_macos_bazel.yml
 [arm64_macos_bazel_status]: ./../../actions/workflows/arm64_macos_bazel.yml/badge.svg
 [arm64_macos_bazel_link]: ./../../actions/workflows/arm64_macos_bazel.yml
+[amd64_windows_bazel_status]: ./../../actions/workflows/amd64_windows_bazel.yml/badge.svg
+[amd64_windows_bazel_link]: ./../../actions/workflows/amd64_windows_bazel.yml
 [amd64_docker_bazel_status]: ./../../actions/workflows/amd64_docker_bazel.yml/badge.svg
 [amd64_docker_bazel_link]: ./../../actions/workflows/amd64_docker_bazel.yml
 
