@@ -1,8 +1,3 @@
-enable_language(CXX)
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
-
 # Check primitive types
 option(CHECK_TYPE "Check primitive type size" OFF)
 if(CHECK_TYPE)
@@ -112,9 +107,9 @@ macro(get_cpp_proto PROTO_HDRS PROTO_SRCS)
   endforeach()
 endmacro()
 
-add_subdirectory(foo)
-
-# Install
+###################
+## CMake Install ##
+###################
 install(EXPORT ${PROJECT_NAME}Targets
   NAMESPACE ${PROJECT_NAMESPACE}::
   DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
