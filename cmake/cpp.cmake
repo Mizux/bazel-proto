@@ -54,7 +54,7 @@ function(add_cpp_test FILE_NAME)
 
   add_executable(${TEST_NAME} ${FILE_NAME})
   target_include_directories(${TEST_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-  target_compile_features(${TEST_NAME} PRIVATE cxx_std_17)
+  target_compile_features(${TEST_NAME} PRIVATE cxx_std_20)
   target_link_libraries(${TEST_NAME} PRIVATE
     #Catch2 Catch2WithMain
     GTest::gtest GTest::gtest_main
@@ -151,7 +151,7 @@ function(add_cpp_example FILE_NAME)
 
   add_executable(${EXAMPLE_NAME} ${FILE_NAME})
   target_include_directories(${EXAMPLE_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-  target_compile_features(${EXAMPLE_NAME} PRIVATE cxx_std_17)
+  target_compile_features(${EXAMPLE_NAME} PRIVATE cxx_std_20)
   target_link_libraries(${EXAMPLE_NAME} PRIVATE
     ${PROJECT_NAMESPACE}::Foo
   )

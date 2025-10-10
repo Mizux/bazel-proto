@@ -41,6 +41,10 @@ set(ABSL_DEPS
   absl::any
   )
 
+if(NOT TARGET re2::re2)
+  message(FATAL_ERROR "Target re2::re2 not available.")
+endif()
+set(RE2_DEPS re2::re2)
 
 if(NOT TARGET protobuf::libprotobuf)
   message(FATAL_ERROR "Target protobuf::libprotobuf not available.")
@@ -48,11 +52,6 @@ endif()
 
 # CXX Test
 if(BUILD_TESTING)
-  if(NOT TARGET re2::re2)
-    message(FATAL_ERROR "Target re2::re2 not available.")
-  endif()
-  set(RE2_DEPS re2::re2)
-
   if(NOT TARGET GTest::gtest)
     message(FATAL_ERROR "Target GTest::gtest not available.")
   endif()
