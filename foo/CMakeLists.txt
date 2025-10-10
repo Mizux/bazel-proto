@@ -30,9 +30,10 @@ target_link_libraries(Foo PUBLIC protobuf::libprotobuf)
 add_library(${PROJECT_NAMESPACE}::Foo ALIAS Foo)
 
 # Test
-if(BUILD_TESTING)
-  add_cpp_test(${CMAKE_CURRENT_SOURCE_DIR}/foo_test.cc)
-endif()
+add_cxx_test(
+  NAME foo_test
+  SOURCES foo_test.cc
+  LINK_LIBRARIES ${PROJECT_NAMESPACE}::Foo)
 
 # Install
 include(GNUInstallDirs)
