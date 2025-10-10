@@ -112,6 +112,7 @@ include(host)
 include(check_deps)
 
 include(cpp)
+
 add_subdirectory(foo)
 
 #add_subdirectory(examples)
