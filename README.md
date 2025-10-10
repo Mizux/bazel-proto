@@ -146,12 +146,15 @@ Few links on the subject...
 ### Resources
 
 Project layout:
-
-* The Pitchfork Layout Revision 1 (cxx-pflR1)
+* [The Pitchfork Layout Revision 1 (cxx-pflR1)](https://github.com/vector-of-bool/pitchfork)
 
 Bazel:
-
 * https://docs.bazel.build/versions
+
+CMake:
+* https://llvm.org/docs/CMakePrimer.html
+* https://cliutils.gitlab.io/modern-cmake/
+* https://cgold.readthedocs.io/en/latest/
 
 ### Misc
 
