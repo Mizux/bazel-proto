@@ -16,4 +16,4 @@ foo::C protoFunction(int level) {
 
   return c;
 }
-} // namespace foo
+}  // namespace foo
