@@ -128,6 +128,8 @@ endfunction()
 # add_cxx_library(
 #   NAME
 #     foo
+#   HEADERS
+#     foo.h
 #   SOURCES
 #     foo.cc
 #     ${PROJECT_SOURCE_DIR}/Foo/foo.cc
@@ -140,9 +142,9 @@ endfunction()
 # )
 function(add_cxx_library)
   set(options "TESTING")
-  set(oneValueArgs "NAME;TYPE")
+  set(oneValueArgs "NAME;TYPE;INSTALL_DIR")
   set(multiValueArgs
-    "SOURCES;COMPILE_DEFINITIONS;COMPILE_OPTIONS;LINK_LIBRARIES;LINK_OPTIONS")
+    "HEADERS;SOURCES;COMPILE_DEFINITIONS;COMPILE_OPTIONS;LINK_LIBRARIES;LINK_OPTIONS")
   cmake_parse_arguments(LIBRARY
     "${options}"
     "${oneValueArgs}"
@@ -165,27 +167,40 @@ function(add_cxx_library)
   if(LIBRARY_TYPE STREQUAL "INTERFACE")
     target_include_directories(${LIBRARY_NAME} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
     target_link_libraries(${LIBRARY_NAME} INTERFACE ${LIBRARY_LINK_LIBRARIES})
+    target_link_options(${LIBRARY_NAME} INTERFACE ${LIBRARY_LINK_OPTIONS})
   else()
-    target_sources(${LIBRARY_NAME} PRIVATE ${LIBRARY_SOURCES})
     target_include_directories(${LIBRARY_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+    target_sources(${LIBRARY_NAME} PRIVATE
+      ${LIBRARY_HEADERS}
+      ${LIBRARY_SOURCES}
+    )
     target_compile_definitions(${LIBRARY_NAME} PRIVATE ${LIBRARY_COMPILE_DEFINITIONS})
     target_compile_features(${LIBRARY_NAME} PRIVATE cxx_std_20)
     target_compile_options(${LIBRARY_NAME} PRIVATE ${LIBRARY_COMPILE_OPTIONS})
     target_link_libraries(${LIBRARY_NAME} PUBLIC ${LIBRARY_LINK_LIBRARIES})
     target_link_options(${LIBRARY_NAME} PRIVATE ${LIBRARY_LINK_OPTIONS})
   endif()
+  set_target_properties(${LIBRARY_NAME} PROPERTIES
+    VERSION ${PROJECT_VERSION}
+    POSITION_INDEPENDENT_CODE ON
+    PUBLIC_HEADER ${LIBRARY_HEADERS}
+  )
 
-  include(GNUInstallDirs)
   if(APPLE)
-    set_target_properties(${LIBRARY_NAME} PROPERTIES
-      INSTALL_RPATH "@loader_path/../${CMAKE_INSTALL_LIBDIR};@loader_path")
+    set_target_properties(${LIBRARY_NAME} PROPERTIES INSTALL_RPATH "@loader_path")
   elseif(UNIX)
-    cmake_path(RELATIVE_PATH CMAKE_INSTALL_FULL_LIBDIR
-      BASE_DIRECTORY ${CMAKE_INSTALL_FULL_BINDIR}
-      OUTPUT_VARIABLE libdir_relative_path)
-    set_target_properties(${LIBRARY_NAME} PROPERTIES
-      INSTALL_RPATH "$ORIGIN/${libdir_relative_path}:$ORIGIN")
+    set_target_properties(${LIBRARY_NAME} PROPERTIES INSTALL_RPATH "$ORIGIN")
   endif()
+
+  # Install
+  include(GNUInstallDirs)
+  install(TARGETS ${LIBRARY_NAME}
+    EXPORT ${PROJECT_NAME}Targets
+    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${LIBRARY_INSTALL_DIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    #RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+  )
   add_library(${PROJECT_NAMESPACE}::${LIBRARY_NAME} ALIAS ${LIBRARY_NAME})
   message(STATUS "Configuring library ${LIBRARY_NAME} ...DONE")
 endfunction()
@@ -257,38 +272,3 @@ install(
   "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
   DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}"
   COMPONENT Devel)
-
-# add_cpp_example()
-# CMake function to generate and build C++ example.
-# Parameters:
-#  the C++ filename
-# e.g.:
-# add_cpp_example(foo.cpp)
-function(add_cpp_example FILE_NAME)
-  message(STATUS "Configuring example ${FILE_NAME}: ...")
-  get_filename_component(EXAMPLE_NAME ${FILE_NAME} NAME_WE)
-  get_filename_component(COMPONENT_DIR ${FILE_NAME} DIRECTORY)
-  get_filename_component(COMPONENT_NAME ${COMPONENT_DIR} NAME)
-
-  if(APPLE)
-    set(CMAKE_INSTALL_RPATH
-      "@loader_path/../${CMAKE_INSTALL_LIBDIR};@loader_path")
-  elseif(UNIX)
-    set(CMAKE_INSTALL_RPATH "$ORIGIN/../${CMAKE_INSTALL_LIBDIR}:$ORIGIN")
-  endif()
-
-  add_executable(${EXAMPLE_NAME} ${FILE_NAME})
-  target_include_directories(${EXAMPLE_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-  target_compile_features(${EXAMPLE_NAME} PRIVATE cxx_std_20)
-  target_link_libraries(${EXAMPLE_NAME} PRIVATE
-    ${PROJECT_NAMESPACE}::Foo
-  )
-
-  include(GNUInstallDirs)
-  install(TARGETS ${EXAMPLE_NAME})
-
-  if(BUILD_TESTING)
-    add_test(NAME cpp_${COMPONENT_NAME}_${EXAMPLE_NAME} COMMAND ${EXAMPLE_NAME})
-  endif()
-  message(STATUS "Configuring example ${FILE_NAME}: ...DONE")
-endfunction()

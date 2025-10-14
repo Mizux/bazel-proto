@@ -1,11 +1,11 @@
 # This file is just an orchestration
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.24..3.31)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 # Enable output of compile commands during generation.
 option(CMAKE_EXPORT_COMPILE_COMMANDS "Export compile command" ON)
 
-project(BazelProto VERSION 1.0 LANGUAGES C CXX)
+project(BazelProto VERSION 1.0.0 LANGUAGES C CXX)
 set(PROJECT_NAMESPACE BazelProto)
 message(STATUS "${PROJECT_NAME} version: ${PROJECT_VERSION}")
 #message(STATUS "major: ${PROJECT_VERSION_MAJOR}")
@@ -92,7 +92,7 @@ set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1)
 include(CTest)
 
 if(BUILD_TESTING)
-  option(BUILD_googletest "Build the googletest dependency Library" ON)
+  option(BUILD_googletest "Build googletest" ON)
 else()
   set(BUILD_googletest OFF)
 endif()
@@ -112,7 +112,6 @@ include(host)
 include(check_deps)
 
 include(cpp)
-
 add_subdirectory(foo)
 
 #add_subdirectory(examples)
