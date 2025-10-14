@@ -29,11 +29,11 @@ set_target_properties(Foo PROPERTIES
 target_link_libraries(Foo PUBLIC protobuf::libprotobuf)
 add_library(${PROJECT_NAMESPACE}::Foo ALIAS Foo)
 
-# Test
 add_cxx_test(
   NAME foo_test
   SOURCES foo_test.cc
-  LINK_LIBRARIES ${PROJECT_NAMESPACE}::Foo)
+  LINK_LIBRARIES ${PROJECT_NAMESPACE}::Foo
+)
 
 # Install
 include(GNUInstallDirs)
