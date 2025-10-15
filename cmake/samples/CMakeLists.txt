@@ -5,12 +5,12 @@ include(CTest)
 find_package(BazelProto REQUIRED)
 
 add_executable(sample main.cpp)
-target_compile_features(sample PUBLIC cxx_std_17)
+target_compile_features(sample PUBLIC cxx_std_20)
 set_target_properties(sample PROPERTIES
-  CXX_STANDARD 17
+  CXX_STANDARD 20
   CXX_STANDARD_REQUIRED ON
   VERSION ${PROJECT_VERSION})
-target_link_libraries(sample PRIVATE BazelProto::Foo)
+target_link_libraries(sample PRIVATE BazelProto::foo)
 
 if(BUILD_TESTING)
   add_test(NAME sample_UT COMMAND sample)
