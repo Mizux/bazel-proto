@@ -1,4 +1,0 @@
-exports_files([
-  "abseil-cpp-20250814.1.patch",
-  "protobuf-v32.0.patch",
-])
