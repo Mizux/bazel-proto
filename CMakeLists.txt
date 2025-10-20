@@ -92,7 +92,7 @@ set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1)
 include(CTest)
 
 if(BUILD_TESTING)
-  option(BUILD_googletest "Build googletest" ON)
+  option(BUILD_googletest "Build the googletest dependency Library" ON)
 else()
   set(BUILD_googletest OFF)
 endif()
