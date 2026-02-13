@@ -1,5 +1,7 @@
-load("@rules_proto//proto:defs.bzl", "proto_library")
+load("@protobuf//bazel:cc_proto_library.bzl", "cc_proto_library")
+load("@rules_cc//cc:cc_test.bzl", "cc_test")
 load("@rules_cc//cc:defs.bzl", "cc_library")
+load("@rules_proto//proto:defs.bzl", "proto_library")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -12,7 +14,7 @@ proto_library(
     name = "proto_b",
     srcs = ["B.proto"],
     deps = [
-      "@protobuf//:duration_proto",
+        "@protobuf//:duration_proto",
     ],
 )
 
@@ -20,8 +22,8 @@ proto_library(
     name = "proto_c",
     srcs = ["C.proto"],
     deps = [
-      ":proto_a",
-      ":proto_b",
+        ":proto_a",
+        ":proto_b",
     ],
 )
 
@@ -31,21 +33,21 @@ cc_proto_library(
 )
 
 cc_library(
-  name = "foo",
-  srcs = ["foo.cc"],
-  hdrs = ["foo.h"],
-  #strip_include_prefix = "include",
-  visibility = ["//visibility:public"],
-  deps = [
-    ":foo_cc_proto",
-  ],
+    name = "foo",
+    srcs = ["foo.cc"],
+    hdrs = ["foo.h"],
+    #strip_include_prefix = "include",
+    visibility = ["//visibility:public"],
+    deps = [
+        ":foo_cc_proto",
+    ],
 )
 
 cc_test(
-  name = "foo_test",
-  srcs = ["foo_test.cc"],
-  deps = [
-    "@googletest//:gtest_main",
-    ":foo",
-  ],
+    name = "foo_test",
+    srcs = ["foo_test.cc"],
+    deps = [
+        ":foo",
+        "@googletest//:gtest_main",
+    ],
 )
