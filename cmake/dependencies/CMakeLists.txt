@@ -36,11 +36,11 @@ if(BUILD_absl)
   FetchContent_Declare(
     absl
     GIT_REPOSITORY "https://github.com/abseil/abseil-cpp.git"
-    GIT_TAG "20250814.1"
+    GIT_TAG "20260107.1"
     GIT_SHALLOW TRUE
     UPDATE_COMMAND git reset --hard
     PATCH_COMMAND git apply --ignore-whitespace
-    "${CMAKE_CURRENT_LIST_DIR}/../../patches/abseil-cpp-20250814.1.patch"
+    "${CMAKE_CURRENT_LIST_DIR}/../../patches/abseil-cpp-20260107.1.patch"
     OVERRIDE_FIND_PACKAGE
   )
   set(ABSL_USE_SYSTEM_INCLUDES ON)
@@ -88,12 +88,12 @@ if(BUILD_Protobuf)
   FetchContent_Declare(
     Protobuf
     GIT_REPOSITORY "https://github.com/protocolbuffers/protobuf.git"
-    GIT_TAG "v33.0"
+    GIT_TAG "v33.5"
     GIT_SHALLOW TRUE
     GIT_SUBMODULES ""
     UPDATE_COMMAND git reset --hard
     PATCH_COMMAND git apply --ignore-whitespace
-    "${CMAKE_CURRENT_LIST_DIR}/../../patches/protobuf-v33.0.patch"
+    "${CMAKE_CURRENT_LIST_DIR}/../../patches/protobuf-v33.5.patch"
   )
   set(protobuf_BUILD_TESTS OFF)
   set(protobuf_BUILD_SHARED_LIBS ON)
