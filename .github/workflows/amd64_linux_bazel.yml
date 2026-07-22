@@ -9,9 +9,17 @@ concurrency:
 
 # Building using the github runner environement directly.
 jobs:
-  bzlmod:
-    name: Linux•Bazel(bzlmod)
+  native:
+    name: Linux•Bazel(${{matrix.bazel-version}})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        bazel-version:
+          - "8.x"
+          - "9.x"
+    env:
+      USE_BAZEL_VERSION: ${{matrix.bazel-version}}
     steps:
       - uses: actions/checkout@v7
       - uses: bazel-contrib/setup-bazel@0.19.0
@@ -28,6 +36,6 @@ jobs:
 
   amd64_linux_bazel:
     runs-on: ubuntu-latest
-    needs: bzlmod
+    needs: native
     steps:
       - uses: actions/checkout@v7
