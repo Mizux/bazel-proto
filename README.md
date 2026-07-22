@@ -52,7 +52,7 @@ note: A CMake support is also provided as comparison
 
 You'll need:
 
-* "Bazel >= 7.0".
+* "Bazel >= 8.0".
 * "CMake >= 3.25".
 
 ## Codemap
